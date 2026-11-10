@@ -1,7 +1,6 @@
 <?php
 
+use App\Support\DashboardData;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn () => view('pages.dashboard', DashboardData::all()))->name('dashboard');
