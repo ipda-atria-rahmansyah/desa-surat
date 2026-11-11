@@ -1,9 +1,107 @@
-@import 'tailwindcss';
+:root {
+    --app-sidebar: #0b5d2e;
+    --app-sidebar-active: #2e8b4a;
+    --app-primary: #2e8b4a;
+    --app-primary-dark: #0b5d2e;
+    --app-primary-soft: #dcefe2;
+    --app-body-bg: #f4f8f5;
+    --app-border: #e3e8e5;
+    --app-body-color: #1b2b22;
+    --app-text-muted: #6b7280;
+    --app-info-bg: #eef7f4;
+    --app-info-line: #cfe6dc;
+    --app-badge-done-bg: #d6f0dd;
+    --app-badge-done-text: #1f7a3d;
+    --app-badge-wait-bg: #fdf0c8;
+    --app-badge-wait-text: #c77a00;
+    --app-stat-green: #2e9e57;
+    --app-stat-blue: #3b82d6;
+    --app-stat-orange: #f2a413;
+    --app-stat-purple: #7b4bd6;
+    --app-donut-people: #0b5d2e;
+    --app-donut-business: #2e9e57;
+    --app-donut-welfare: #8fd19e;
+    --app-donut-other: #c9d3cd;
+    --app-sidebar-width: 256px;
+    --app-topbar-height: 56px;
+    --bs-primary: var(--app-primary);
+    --bs-primary-rgb: 46, 139, 74;
+    --bs-body-bg: var(--app-body-bg);
+    --bs-body-color: var(--app-body-color);
+    --bs-border-color: var(--app-border);
+    --bs-border-radius: 8px;
+    --bs-border-radius-lg: 12px;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+body {
+    font-family: Inter, sans-serif;
+    background: var(--app-body-bg);
+    color: var(--app-body-color);
+    font-size: 12px;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.app-sidebar { --bs-offcanvas-width: min(var(--app-sidebar-width), 85vw); width: var(--app-sidebar-width); background: linear-gradient(145deg, #0b5d2e 0%, #064b2b 100%); color: white; }
+.app-brand-mark { width: 40px; height: 40px; border-radius: 50%; background: var(--app-primary-soft); color: var(--app-sidebar); font-size: 22px; }
+.app-brand-title { font-size: 15px; }
+.app-brand-subtitle { color: rgb(255 255 255 / 70%); font-size: 11px; }
+.app-nav-link { min-height: 40px; padding: 0 10px; border-radius: 8px; color: white; font-size: 13px; font-weight: 500; }
+.app-nav-link:hover, .app-nav-link.active { background: var(--app-sidebar-active); color: white; }
+.app-nav-link i { width: 18px; font-size: 18px; }
+.app-nav-logout { border-top: 1px solid rgb(255 255 255 / 20%); }
+.app-main { min-height: 100vh; }
+.app-topbar { position: sticky; z-index: 1020; top: 0; height: var(--app-topbar-height); background: white; border-bottom: 1px solid var(--app-border); }
+.app-avatar { width: 28px; height: 28px; }
+.app-content { padding: 24px; }
+.app-page-title { font-size: 24px; }
+.app-welcome { font-size: 14px; }
+.app-welcome-highlight { color: var(--app-primary); }
+.app-description { color: var(--app-text-muted); font-size: 11px; }
+.app-date-chip { min-height: 40px; padding: 0 12px; white-space: nowrap; background: white; border: 1px solid var(--app-border); border-radius: 8px; }
+.app-card { border: 1px solid var(--app-border); border-radius: 12px; box-shadow: 0 2px 8px rgb(27 43 34 / 4%); }
+.app-card .card-body { padding: 16px; }
+.app-card-title { font-size: 14px; }
+.app-stat-icon { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; color: white; font-size: 18px; }
+.app-stat-icon--green { background: var(--app-stat-green); }
+.app-stat-icon--blue { background: var(--app-stat-blue); }
+.app-stat-icon--orange { background: var(--app-stat-orange); }
+.app-stat-icon--purple { background: var(--app-stat-purple); }
+.app-stat-label, .app-stat-note { font-size: 11px; }
+.app-stat-label { color: var(--app-text-muted); }
+.app-stat-value { font-size: 24px; line-height: 1.2; }
+.app-stat-note { color: var(--app-primary); }
+.app-link { color: var(--app-primary); text-decoration: none; font-size: 11px; }
+.app-table { --bs-table-bg: transparent; margin: 0; white-space: nowrap; font-size: 10px; }
+.app-table thead th { background: #f1f6f3; color: var(--app-body-color); font-weight: 600; }
+.app-table th, .app-table td { padding: 9px 7px; vertical-align: middle; }
+.app-status { padding: 4px 9px; border-radius: 50rem; font-size: 10px; font-weight: 500; }
+.app-status--done { background: var(--app-badge-done-bg); color: var(--app-badge-done-text); }
+.app-status--wait { background: var(--app-badge-wait-bg); color: var(--app-badge-wait-text); }
+.app-chart { display: flex; flex-direction: column; align-items: center; }
+.app-donut { width: 160px; height: 160px; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--app-donut-people) 0deg 174.375deg, var(--app-donut-business) 174.375deg 253.125deg, var(--app-donut-welfare) 253.125deg 303.75deg, var(--app-donut-other) 303.75deg 360deg); }
+.app-donut-hole { width: 58%; height: 58%; border-radius: 50%; background: white; }
+.app-chart-total { font-size: 14px; }
+.app-chart-caption { color: var(--app-text-muted); font-size: 10px; }
+.app-legend { width: 100%; max-width: 280px; font-size: 10px; }
+.app-legend-swatch { width: 9px; height: 9px; border-radius: 2px; }
+.app-legend-swatch--people { background: var(--app-donut-people); }
+.app-legend-swatch--business { background: var(--app-donut-business); }
+.app-legend-swatch--welfare { background: var(--app-donut-welfare); }
+.app-legend-swatch--other { background: var(--app-donut-other); }
+
+@media (max-width: 991.98px) {
+    .app-content { padding: 16px; }
+    .app-sidebar { position: fixed; }
+}
+
+@media (min-width: 992px) {
+    .app-sidebar { position: fixed; inset: 0 auto 0 0; height: 100vh; }
+    .app-main { margin-left: var(--app-sidebar-width); }
+}
+
+@media (max-width: 767.98px) {
+    .app-content { padding: 12px; }
+    .app-page-title { font-size: 20px; }
+    .app-date-chip { width: 100%; }
+    .app-donut { width: 140px; height: 140px; }
+    .app-table { min-width: 620px; }
 }
