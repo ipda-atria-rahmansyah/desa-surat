@@ -105,3 +105,40 @@ body {
     .app-donut { width: 140px; height: 140px; }
     .app-table { min-width: 620px; }
 }
+
+.app-login-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: clamp(24px, 4vw, 64px);
+    background: radial-gradient(circle at 5% 0%, var(--app-primary-soft) 0 11%, transparent 11.1%), radial-gradient(circle at 98% 100%, var(--app-primary-soft) 0 12%, transparent 12.1%), #f8fdfd;
+    color: var(--app-body-color);
+}
+
+.app-login-shell { width: min(1100px, 100%); min-height: min(680px, calc(100vh - 48px)); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border-radius: 22px; background: white; box-shadow: 0 18px 50px rgb(27 43 34 / 12%); }
+.app-login-intro { position: relative; overflow: hidden; padding: clamp(32px, 4vw, 48px); color: white; background: linear-gradient(150deg, var(--app-sidebar) 0%, var(--app-primary) 66%, #73d69b 100%); }
+.app-login-intro::before { content: ''; position: absolute; width: 620px; height: 620px; right: -280px; top: -230px; border-radius: 50%; background: rgb(0 67 37 / 25%); }
+.app-login-brand, .app-login-welcome { position: relative; z-index: 1; }
+.app-login-emblem { width: 76px; height: 76px; border-radius: 18px; color: #f7cf42; background: rgb(255 255 255 / 12%); font-size: 48px; }
+.app-login-brand-title { font-size: 30px; font-weight: 700; }
+.app-login-brand-subtitle { font-size: 23px; }
+.app-login-welcome { margin: clamp(64px, 8vh, 100px) 0 0; }
+.app-login-welcome h2 { font-size: clamp(34px, 3.2vw, 42px); font-weight: 700; }
+.app-login-welcome p { font-size: clamp(17px, 1.7vw, 21px); line-height: 1.45; }
+.app-login-landscape { position: absolute; inset: auto 0 0; height: 38%; background: linear-gradient(165deg, transparent 35%, rgb(11 93 46 / 35%) 35.2% 56%, rgb(17 132 73 / 65%) 56.2%); }
+.app-login-building { position: absolute; left: 34%; bottom: 19%; font-size: 170px; color: #e7e4cd; text-shadow: 0 10px 0 rgb(11 93 46 / 40%); }
+.app-login-flag { position: absolute; left: 22%; bottom: 20%; font-size: 120px; color: white; }
+.app-login-tree { position: absolute; bottom: 4%; font-size: 100px; color: #16944d; }
+.app-login-tree--one { left: 4%; }.app-login-tree--two { right: 5%; }
+.app-login-form-panel { display: grid; place-items: center; padding: clamp(32px, 4vw, 48px); }
+.app-login-form-wrap { width: min(100%, 440px); }
+.app-login-lock { width: 104px; height: 104px; border-radius: 50%; color: var(--app-primary); background: var(--app-primary-soft); font-size: 50px; }
+.app-login-title { font-size: 38px; font-weight: 700; }.app-login-subtitle { color: #56728d; font-size: 18px; }
+.app-login-input { min-height: 56px; border: 2px solid #d6e1e7; border-radius: 10px; overflow: hidden; }.app-login-input .input-group-text { border: 0; background: transparent; color: var(--app-primary); font-size: 20px; padding-left: 14px; }.app-login-input .form-control { border: 0; font-size: 16px; }.app-login-input .form-control:focus { box-shadow: none; }.app-login-toggle { color: #56728d; font-size: 18px; }
+.app-login-options { font-size: 14px; }.app-login-options .form-check-input { width: 20px; height: 20px; border-color: #9bb1c0; }.app-login-link { color: var(--app-primary); text-decoration: none; }
+.app-login-submit { min-height: 56px; border-radius: 10px; color: white; background: linear-gradient(90deg, #159b58, #0b9e57); font-size: 18px; font-weight: 700; }.app-login-submit:hover { color: white; background: var(--app-primary-dark); }
+.app-login-divider { color: #56728d; font-size: 18px; }.app-login-divider span { height: 2px; flex: 1; background: #d6e1e7; }.app-login-divider b { font-weight: 500; }
+.app-login-help { padding: 14px 18px; border-radius: 10px; color: #087244; background: var(--app-info-bg); font-size: 14px; line-height: 1.35; }.app-login-help i { font-size: 22px; }
+
+@media (max-width: 991.98px) { .app-login-page { padding: 24px; }.app-login-shell { min-height: auto; grid-template-columns: 1fr; }.app-login-intro { min-height: 420px; }.app-login-form-panel { padding: 48px 32px; } }
+@media (max-width: 575.98px) { .app-login-page { padding: 0; }.app-login-shell { border-radius: 0; min-height: 100vh; }.app-login-intro { min-height: 330px; padding: 28px 24px; }.app-login-emblem { width: 52px; height: 52px; font-size: 30px; }.app-login-brand-title { font-size: 22px; }.app-login-brand-subtitle { font-size: 15px; }.app-login-welcome { margin-top: 55px; }.app-login-welcome h2 { font-size: 32px; }.app-login-welcome p { font-size: 17px; }.app-login-form-panel { padding: 34px 20px; }.app-login-lock { width: 90px; height: 90px; font-size: 42px; }.app-login-title { font-size: 34px; }.app-login-subtitle { font-size: 17px; margin-bottom: 30px !important; }.app-login-input { min-height: 54px; }.app-login-input .form-control { font-size: 16px; }.app-login-options { font-size: 15px; }.app-login-submit { min-height: 54px; font-size: 18px; }.app-login-help { padding: 14px 16px; font-size: 14px; } }
