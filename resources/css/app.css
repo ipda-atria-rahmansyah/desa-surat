@@ -125,7 +125,7 @@ body {
 .app-login-welcome { margin: clamp(64px, 8vh, 100px) 0 0; }
 .app-login-welcome h2 { font-size: clamp(34px, 3.2vw, 42px); font-weight: 700; }
 .app-login-welcome p { font-size: clamp(17px, 1.7vw, 21px); line-height: 1.45; }
-.app-login-landscape { position: absolute; inset: auto 0 0; height: 38%; background: linear-gradient(165deg, transparent 35%, rgb(11 93 46 / 35%) 35.2% 56%, rgb(17 132 73 / 65%) 56.2%); }
+.app-login-landscape { position: absolute; z-index: 0; inset: auto 0 0; height: 38%; background: linear-gradient(165deg, transparent 35%, rgb(11 93 46 / 35%) 35.2% 56%, rgb(17 132 73 / 65%) 56.2%); }
 .app-login-building { position: absolute; left: 34%; bottom: 19%; font-size: 170px; color: #e7e4cd; text-shadow: 0 10px 0 rgb(11 93 46 / 40%); }
 .app-login-flag { position: absolute; left: 22%; bottom: 20%; font-size: 120px; color: white; }
 .app-login-tree { position: absolute; bottom: 4%; font-size: 100px; color: #16944d; }
@@ -140,5 +140,39 @@ body {
 .app-login-divider { color: #56728d; font-size: 18px; }.app-login-divider span { height: 2px; flex: 1; background: #d6e1e7; }.app-login-divider b { font-weight: 500; }
 .app-login-help { padding: 14px 18px; border-radius: 10px; color: #087244; background: var(--app-info-bg); font-size: 14px; line-height: 1.35; }.app-login-help i { font-size: 22px; }
 
-@media (max-width: 991.98px) { .app-login-page { padding: 24px; }.app-login-shell { min-height: auto; grid-template-columns: 1fr; }.app-login-intro { min-height: 420px; }.app-login-form-panel { padding: 48px 32px; } }
-@media (max-width: 575.98px) { .app-login-page { padding: 0; }.app-login-shell { border-radius: 0; min-height: 100vh; }.app-login-intro { min-height: 330px; padding: 28px 24px; }.app-login-emblem { width: 52px; height: 52px; font-size: 30px; }.app-login-brand-title { font-size: 22px; }.app-login-brand-subtitle { font-size: 15px; }.app-login-welcome { margin-top: 55px; }.app-login-welcome h2 { font-size: 32px; }.app-login-welcome p { font-size: 17px; }.app-login-form-panel { padding: 34px 20px; }.app-login-lock { width: 90px; height: 90px; font-size: 42px; }.app-login-title { font-size: 34px; }.app-login-subtitle { font-size: 17px; margin-bottom: 30px !important; }.app-login-input { min-height: 54px; }.app-login-input .form-control { font-size: 16px; }.app-login-options { font-size: 15px; }.app-login-submit { min-height: 54px; font-size: 18px; }.app-login-help { padding: 14px 16px; font-size: 14px; } }
+@media (max-width: 991.98px) {
+    .app-login-page { padding: 24px; }
+    .app-login-shell { min-height: auto; grid-template-columns: 1fr; }
+    .app-login-intro { min-height: 360px; }
+    .app-login-welcome { margin-top: 56px; }
+    .app-login-form-panel { padding: 40px 28px; }
+}
+
+@media (max-width: 575.98px) {
+    .app-login-page { padding: 0; }
+    .app-login-shell { border-radius: 0; min-height: 100vh; }
+    .app-login-intro { min-height: 300px; padding: 24px 20px; }
+    .app-login-emblem { width: 48px; height: 48px; font-size: 28px; }
+    .app-login-brand { gap: 12px !important; }
+    .app-login-brand-title { font-size: 20px; }
+    .app-login-brand-subtitle { font-size: 14px; }
+    .app-login-welcome { margin-top: 48px; }
+    .app-login-welcome h2 { font-size: 28px; }
+    .app-login-welcome p { font-size: 16px; }
+    .app-login-landscape { height: 34%; }
+    .app-login-building { left: 30%; font-size: 120px; }
+    .app-login-flag { left: 17%; font-size: 86px; }
+    .app-login-tree { font-size: 72px; }
+    .app-login-form-panel { padding: 32px 16px; }
+    .app-login-form-wrap { width: 100%; }
+    .app-login-lock { width: 82px; height: 82px; font-size: 38px; }
+    .app-login-title { font-size: 32px; }
+    .app-login-subtitle { font-size: 16px; margin-bottom: 28px !important; }
+    .app-login-input { min-height: 52px; }
+    .app-login-input .form-control { min-width: 0; font-size: 15px; }
+    .app-login-options { gap: 12px; font-size: 14px; }
+    .app-login-options .app-login-link { text-align: right; }
+    .app-login-submit { min-height: 52px; font-size: 17px; }
+    .app-login-divider { font-size: 16px; }
+    .app-login-help { padding: 13px 14px; font-size: 13px; }
+}
