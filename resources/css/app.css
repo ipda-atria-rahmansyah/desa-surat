@@ -4,6 +4,7 @@
     --app-primary: #2e8b4a;
     --app-primary-dark: #0b5d2e;
     --app-primary-soft: #dcefe2;
+    --app-primary-transparent: rgb(46 139 74 / 12%);
     --app-body-bg: #f4f8f5;
     --app-border: #e3e8e5;
     --app-body-color: #1b2b22;
@@ -94,16 +95,17 @@ body {
 .app-legend-swatch--welfare { background: var(--app-donut-welfare); }
 .app-legend-swatch--other { background: var(--app-donut-other); }
 
-.app-stepper { width: 100%; }
-.app-step { width: 20%; min-width: 0; color: var(--app-text-muted); font-size: 11px; }
-.app-step-top { min-height: 28px; }
-.app-step-circle { width: 28px; height: 28px; flex: 0 0 28px; border: 1px solid var(--app-border); border-radius: 50%; background: var(--app-body-bg); color: var(--app-text-muted); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
-.app-step-line { height: 2px; flex: 1; background: var(--app-border); }
+.app-stepper { display: flex; width: 100%; justify-content: space-between; }
+.app-step { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; position: relative; color: var(--app-text-muted); font-size: 11px; }
+.app-step-top { display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; position: relative; }
+.app-step-circle { width: 40px; height: 40px; min-width: 40px; border: 1px solid var(--app-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; position: relative; z-index: 2; background: var(--app-body-bg); color: var(--app-text-muted); }
+.app-step-line { flex: 1; height: 2px; background: var(--app-border); }
 .app-step-line.done { background: var(--app-primary); }
 .app-step.done, .app-step.active { color: var(--app-primary); }
 .app-step.done .app-step-circle { border-color: var(--app-primary); background: var(--app-primary); color: white; }
 .app-step.active .app-step-circle { border-color: var(--app-primary-dark); background: var(--app-primary-dark); color: white; }
-.app-step-label { margin-top: 7px; text-align: center; white-space: nowrap; }
+.app-step.pending .app-step-circle { background: var(--app-border); color: var(--app-text-muted); }
+.app-step-label { display: block; width: 100%; margin-top: 10px; text-align: center; line-height: 1.4; white-space: nowrap; }
 .app-step.done .app-step-label, .app-step.active .app-step-label { font-weight: 600; }
 .app-step-check { color: var(--app-primary); }
 .app-resident-avatar { width: 48px; height: 48px; flex: 0 0 48px; background: var(--app-primary-soft); color: var(--app-primary); font-size: 22px; }
@@ -112,12 +114,17 @@ body {
 .app-field-label { color: var(--app-text-muted); font-size: 11px; margin-bottom: 5px; }
 .app-input-icon { color: var(--app-text-muted); background: white; border-color: var(--app-border); }
 .app-touch-target { min-height: 40px; }
+.app-category-option { min-height: 64px; padding: 10px; border: 1px solid var(--app-border); border-radius: var(--bs-border-radius); background: white; color: var(--app-body-color); }
+.app-category-option.selected { border-color: var(--app-primary); background: var(--app-primary-transparent); }
+.app-category-icon { width: 40px; height: 40px; flex: 0 0 40px; border-radius: var(--bs-border-radius); color: var(--app-primary); background: var(--app-primary-soft); font-size: 18px; }
+.app-category-option small { color: var(--app-text-muted); font-size: 11px; }
+.app-search-message { color: var(--app-badge-wait-text); font-size: 11px; }
 .app-info-alert { padding: 12px 14px; border: 1px solid var(--app-info-line); border-radius: var(--bs-border-radius); background: var(--app-info-bg); color: var(--app-body-color); font-size: 11px; }
 .app-info-alert i { color: var(--app-primary); font-size: 16px; }
 
 @media (max-width: 575.98px) {
-    .app-step-circle { width: 24px; height: 24px; flex-basis: 24px; font-size: 10px; }
-    .app-step-top { min-height: 24px; }
+    .app-step-circle { width: 24px; height: 24px; min-width: 24px; font-size: 10px; }
+    .app-step-top { height: 24px; }
     .app-step-label { white-space: normal; }
 }
 

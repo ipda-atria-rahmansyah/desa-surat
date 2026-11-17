@@ -1,12 +1,21 @@
-<div class="app-stepper d-flex align-items-start mb-4" aria-label="Tahapan pembuatan surat">
-    @foreach ([['Pilih Kategori', 'done'], ['Pilih Jenis Surat', 'done'], ['Cari Warga', 'done'], ['Isi Data Surat', 'active'], ['Selesai', 'pending']] as $index => $item)
-        <div class="app-step {{ $item[1] }} d-flex flex-column align-items-center">
-            <div class="app-step-top d-flex align-items-center w-100">
-                @if ($index > 0)<span class="app-step-line {{ $index <= 3 ? 'done' : '' }}"></span>@endif
-                <span class="app-step-circle">{!! $item[1] === 'done' ? '<i class="bi bi-check-lg"></i>' : $index + 1 !!}</span>
-                @if ($index < 4)<span class="app-step-line {{ $index < 3 ? 'done' : '' }}"></span>@endif
+@props(['current' => 1])
+
+<div class="app-stepper mb-4" aria-label="Tahapan pembuatan surat">
+    @foreach ([['Pilih Kategori', 1], ['Pilih Jenis Surat', 2], ['Cari Warga', 3], ['Isi Data Surat', 4], ['Selesai', 5]] as $index => $item)
+        @php($status = $item[1] < $current ? 'done' : ($item[1] === $current ? 'active' : 'pending'))
+        <div class="app-step {{ $status }}">
+            <div class="app-step-top">
+                @if ($index >= 0)
+                    <span class="app-step-line {{ $item[1] <= $current ? 'done' : '' }}"></span>
+                @endif
+                <span class="app-step-circle">
+                    {!! $status === 'done' ? '<i class="bi bi-check-lg"></i>' : $item[1] !!}
+                </span>
+                @if ($index <= 4)
+                    <span class="app-step-line {{ $item[1] < $current ? 'done' : '' }}"></span>
+                @endif
             </div>
-            <span class="app-step-label {{ $index === 3 ? '' : 'd-none d-md-block' }}">{{ $item[0] }}</span>
+            <span class="app-step-label {{ $item[1] === $current ? '' : 'd-none d-md-block' }}">{{ $item[0] }}</span>
         </div>
     @endforeach
 </div>

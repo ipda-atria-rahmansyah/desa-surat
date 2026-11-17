@@ -14,7 +14,7 @@
         </div>
         <nav class="d-flex flex-column gap-1">
             <x-sidebar-item href="{{ route('dashboard') }}" label="Dashboard" icon="bi-house-door-fill" :active="request()->routeIs('dashboard')" />
-            <x-sidebar-item href="{{ route('create-letter') }}" label="Buat Surat" icon="bi-pencil-square" :active="request()->routeIs('create-letter')" />
+            <x-sidebar-item href="{{ route('create-letter-step-1-to-3') }}" label="Buat Surat" icon="bi-pencil-square" :active="request()->routeIs('create-letter')" />
             <x-sidebar-item label="Riwayat Surat" icon="bi-clock-history" />
             <x-sidebar-item label="Data Warga" icon="bi-people-fill" />
             <x-sidebar-item label="Pengaturan" icon="bi-gear-fill" />
