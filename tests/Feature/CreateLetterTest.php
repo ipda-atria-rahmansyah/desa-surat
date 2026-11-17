@@ -29,4 +29,27 @@ class CreateLetterTest extends TestCase
             ->assertSee('Simpan &amp; Lanjutkan', false)
             ->assertSee('Data warga sudah terisi otomatis. Silakan lengkapi keperluan surat dan pastikan semua informasi sudah benar.');
     }
+
+    public function test_create_letter_step_five_is_displayed(): void
+    {
+        $this->get('/buat-surat/langkah-5')
+            ->assertOk()
+            ->assertSee('Buat Surat')
+            ->assertSee('Surat Berhasil Dibuat!')
+            ->assertSee('Surat Anda telah berhasil dibuat dan siap digunakan.')
+            ->assertSee('140/SDM/2025')
+            ->assertSee('28 Oktober 2025')
+            ->assertSee('Buat Surat Lagi');
+    }
+
+    public function test_topbar_shows_active_context_and_actions(): void
+    {
+        $this->get('/buat-surat')
+            ->assertOk()
+            ->assertSee('Beranda / Persuratan / Buat Surat')
+            ->assertSee('Notifikasi')
+            ->assertSee('Profil Saya')
+            ->assertSee('Ubah Kata Sandi')
+            ->assertSee('Buat Surat');
+    }
 }
