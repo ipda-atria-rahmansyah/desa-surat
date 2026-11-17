@@ -5,3 +5,8 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import 'bootstrap';
+import Alpine from 'alpinejs';
+
+window.letterForm = () => ({ step: 3 });
+window.Alpine = Alpine;
+Alpine.start();

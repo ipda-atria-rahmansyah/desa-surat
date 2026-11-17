@@ -13,8 +13,8 @@
             <div><div class="app-brand-title fw-bold">Desa Sukamaju</div><div class="app-brand-subtitle">Sistem Surat Menyurat</div></div>
         </div>
         <nav class="d-flex flex-column gap-1">
-            <x-sidebar-item label="Dashboard" icon="bi-house-door-fill" :active="true" />
-            <x-sidebar-item label="Buat Surat" icon="bi-pencil-square" />
+            <x-sidebar-item href="{{ route('dashboard') }}" label="Dashboard" icon="bi-house-door-fill" :active="request()->routeIs('dashboard')" />
+            <x-sidebar-item href="{{ route('create-letter') }}" label="Buat Surat" icon="bi-pencil-square" :active="request()->routeIs('create-letter')" />
             <x-sidebar-item label="Riwayat Surat" icon="bi-clock-history" />
             <x-sidebar-item label="Data Warga" icon="bi-people-fill" />
             <x-sidebar-item label="Pengaturan" icon="bi-gear-fill" />
@@ -38,5 +38,6 @@
         </header>
         <section class="app-content">@yield('content')</section>
     </main>
+    @stack('scripts')
 </body>
 </html>
