@@ -30,6 +30,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.app-login-toggle')?.addEventListener('click', (event) => {
+        const button = event.currentTarget;
+        const passwordInput = button.closest('.input-group')?.querySelector('input[name="password"]');
+        const icon = button.querySelector('i');
+
+        if (!passwordInput || !icon) return;
+
+        const isVisible = passwordInput.type === 'text';
+        passwordInput.type = isVisible ? 'password' : 'text';
+        button.setAttribute('aria-label', isVisible ? 'Tampilkan password' : 'Sembunyikan password');
+        button.setAttribute('aria-pressed', String(!isVisible));
+        icon.classList.toggle('bi-eye-slash-fill', isVisible);
+        icon.classList.toggle('bi-eye-fill', !isVisible);
+    });
+});
+
 window.letterForm = () => ({
     category: 'Surat Kematian',
     letterType: 'Surat Keterangan Domisili',
