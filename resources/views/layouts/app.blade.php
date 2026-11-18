@@ -10,8 +10,8 @@
     @php
         $isAdmin = session('role', 'Admin') === 'Admin';
         $settingsActive = request()->routeIs('settings.*');
-        $userName = session('user_name', 'Operator');
-        $userRole = session('role', 'Admin');
+        $userName = session('user_name', 'Yudi');
+        $userRole = session('role', 'Operator');
         $pageMeta = match (true) {
             request()->routeIs('dashboard') => ['Dashboard', 'Beranda'],
             request()->routeIs('create-letter*') => ['Buat Surat', 'Beranda / Persuratan'],
@@ -23,7 +23,7 @@
     <div class="offcanvas-lg offcanvas-start app-sidebar d-flex flex-column p-3" tabindex="-1" id="appSidebar" aria-label="Navigasi utama">
         <div class="d-flex align-items-center gap-2 mb-4 flex-shrink-0">
             <span class="app-brand-mark d-flex align-items-center justify-content-center"><i class="bi bi-buildings-fill"></i></span>
-            <div><div class="app-brand-title fw-bold">Desa Sukamaju</div><div class="app-brand-subtitle">Sistem Surat Menyurat</div></div>
+            <div><div class="app-brand-title fw-bold">{{ config('app.name') }}</div><div class="app-brand-subtitle">Sistem Surat Menyurat</div></div>
         </div>
         <nav class="app-sidebar-menu d-flex flex-column gap-1" aria-label="Menu aplikasi">
             <div class="app-nav-group-label">UTAMA</div>
@@ -52,7 +52,7 @@
         <div class="app-sidebar-footer mt-auto pt-3 flex-shrink-0">
             <div class="app-sidebar-user d-flex align-items-center gap-2 mb-2">
                 <span class="app-sidebar-user-avatar rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-person-fill"></i></span>
-                <div class="min-width-0"><div class="app-sidebar-user-name text-truncate">{{ session('user_name', 'Operator') }}</div><div class="app-sidebar-user-role">{{ session('role', 'Admin') }}</div></div>
+                <div class="min-width-0"><div class="app-sidebar-user-name text-truncate">{{ $userName }}</div><div class="app-sidebar-user-role">{{ $userRole }}</div></div>
             </div>
             <a href="#" class="app-nav-link d-flex align-items-center gap-2 text-decoration-none"><i class="bi bi-box-arrow-left"></i><span>Keluar</span></a>
         </div>
