@@ -34,21 +34,25 @@
                 <h2 class="app-login-title text-center mb-2">Login</h2>
                 <p class="app-login-subtitle text-center mb-5">Silakan masuk dengan akun Anda</p>
 
-                <form action="#" method="post" class="d-flex flex-column gap-3">
+                <form action="{{ route('login.store') }}" method="post" class="d-flex flex-column gap-3" novalidate>
+                    @csrf
+                    @if ($errors->any())
+                        <div class="alert alert-danger mb-0" role="alert">Nama pengguna atau kata sandi salah.</div>
+                    @endif
                     <div class="app-login-input input-group">
                         <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                        <input type="text" class="form-control" placeholder="Username atau NIK" aria-label="Username atau NIK">
+                        <input type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" placeholder="Username" aria-label="Username" autocomplete="username" required>
                     </div>
                     <div class="app-login-input input-group">
                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" class="form-control" placeholder="Password" aria-label="Password">
-                        <button class="btn app-login-toggle" type="button" aria-label="Tampilkan password"><i class="bi bi-eye-slash-fill"></i></button>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" aria-label="Password" autocomplete="current-password" required>
+                        <button class="btn app-login-toggle" type="button" aria-label="Tampilkan password" aria-pressed="false"><i class="bi bi-eye-slash-fill"></i></button>
                     </div>
                     <div class="d-flex align-items-center justify-content-between app-login-options">
-                        <label class="d-flex align-items-center gap-2 mb-0"><input class="form-check-input m-0" type="checkbox"> <span>Ingat saya</span></label>
+                        <label class="d-flex align-items-center gap-2 mb-0"><input class="form-check-input m-0" name="remember" type="checkbox" value="1"> <span>Ingat saya</span></label>
                         <a href="#" class="app-login-link">Lupa password?</a>
                     </div>
-                    <button type="submit" class="btn app-login-submit"><i class="bi bi-box-arrow-in-right me-2"></i>Masuk</button>
+                    <button type="submit" class="btn app-login-submit text-white"><i class="bi bi-box-arrow-in-right me-2"></i>Masuk</button>
                 </form>
 
                 <div class="app-login-divider d-flex align-items-center gap-3 my-4"><span></span><b>atau</b><span></span></div>

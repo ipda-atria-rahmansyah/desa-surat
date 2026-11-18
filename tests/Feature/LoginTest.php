@@ -12,6 +12,14 @@ class LoginTest extends TestCase
             ->assertOk()
             ->assertSee('Login')
             ->assertSee('Silakan masuk dengan akun Anda')
-            ->assertSee('Username atau NIK');
+            ->assertSee('Username');
+    }
+
+    public function test_login_requires_username_and_password(): void
+    {
+        $this->from('/login')
+            ->post('/login')
+            ->assertRedirect('/login')
+            ->assertSessionHasErrors(['username', 'password']);
     }
 }
