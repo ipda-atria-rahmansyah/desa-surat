@@ -8,10 +8,11 @@
 </head>
 <body>
     @php
-        $isAdmin = session('role', 'Admin') === 'Admin';
+        $user = auth()->user();
+        $isAdmin = $user?->role === 'admin';
         $settingsActive = request()->routeIs('settings.*');
-        $userName = session('user_name', 'Yudi');
-        $userRole = session('role', 'Operator');
+        $userName = $user?->name ?? 'Pengguna';
+        $userRole = ucfirst($user?->role ?? 'operator');
         $pageMeta = match (true) {
             request()->routeIs('dashboard') => ['Dashboard', 'Beranda'],
             request()->routeIs('create-letter*') => ['Buat Surat', 'Beranda / Persuratan'],
@@ -30,23 +31,18 @@
             <x-sidebar-item :href="route('dashboard')" label="Dashboard" icon="bi-house-door-fill" :active="request()->routeIs('dashboard')" />
 
             <div class="app-nav-group-label">DATA</div>
-            <x-sidebar-item label="Data Warga" icon="bi-people-fill" />
+            <x-sidebar-item :href="route('warga.index')" label="Data Warga" icon="bi-people-fill" :active="request()->routeIs('warga.*')" />
 
             <div class="app-nav-group-label">PERSURATAN</div>
             <x-sidebar-item :href="route('create-letter-step-1-to-3')" label="Buat Surat" icon="bi-pencil-square" :active="request()->routeIs('create-letter*')" />
-            <x-sidebar-item label="Arsip Surat" icon="bi-archive-fill" />
-            <x-sidebar-item label="Rekapitulasi Surat" icon="bi-bar-chart-fill" />
+            <x-sidebar-item :href="route('arsip.index')" label="Arsip Surat" icon="bi-archive-fill" :active="request()->routeIs('arsip.*')" />
+            <x-sidebar-item :href="route('rekap.index')" label="Rekapitulasi Surat" icon="bi-bar-chart-fill" :active="request()->routeIs('rekap.*')" />
 
             @if ($isAdmin)
                 <div class="app-nav-group-label">ADMINISTRASI</div>
-                <button class="app-nav-link app-nav-toggle d-flex align-items-center gap-2 border-0 text-start w-100 {{ $settingsActive ? 'active' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#settingsSubmenu" aria-controls="settingsSubmenu" aria-expanded="{{ $settingsActive ? 'true' : 'false' }}">
+                <a class="app-nav-link app-nav-toggle d-flex align-items-center gap-2 border-0 text-start w-100 text-decoration-none {{ $settingsActive ? 'active' : '' }}" href="{{ route('settings.index') }}">
                     <i class="bi bi-gear-fill"></i><span class="flex-grow-1">Pengaturan</span><i class="bi bi-chevron-down app-nav-chevron"></i>
-                </button>
-                <div class="collapse app-nav-submenu {{ $settingsActive ? 'show' : '' }}" id="settingsSubmenu">
-                    <a class="app-nav-sublink text-decoration-none" href="#"><i class="bi bi-person-gear"></i><span>Akun Pengguna</span></a>
-                    <a class="app-nav-sublink text-decoration-none" href="#"><i class="bi bi-pen"></i><span>Pejabat Penandatangan</span></a>
-                    <a class="app-nav-sublink text-decoration-none" href="#"><i class="bi bi-building"></i><span>Identitas Desa</span></a>
-                </div>
+                </a>
             @endif
         </nav>
         <div class="app-sidebar-footer mt-auto pt-3 flex-shrink-0">
@@ -54,7 +50,7 @@
                 <span class="app-sidebar-user-avatar rounded-circle d-flex align-items-center justify-content-center"><i class="bi bi-person-fill"></i></span>
                 <div class="min-width-0"><div class="app-sidebar-user-name text-truncate">{{ $userName }}</div><div class="app-sidebar-user-role">{{ $userRole }}</div></div>
             </div>
-            <a href="#" class="app-nav-link d-flex align-items-center gap-2 text-decoration-none"><i class="bi bi-box-arrow-left"></i><span>Keluar</span></a>
+            <form method="post" action="{{ route('logout') }}">@csrf<button type="submit" class="app-nav-link d-flex align-items-center gap-2 text-decoration-none border-0 bg-transparent w-100 text-start"><i class="bi bi-box-arrow-left"></i><span>Keluar</span></button></form>
         </div>
     </div>
     <main class="app-main">
@@ -91,8 +87,8 @@
                         <li><div class="app-profile-header"><strong>{{ $userName }}</strong><small>{{ $userRole }}</small></div></li>
                         <li><hr class="dropdown-divider"></li><li><a class="dropdown-item" href="#"><i class="bi bi-person"></i>Profil Saya</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-key"></i>Ubah Kata Sandi</a></li>
-                        @if ($isAdmin)<li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Pengaturan</a></li>@endif
-                        <li><hr class="dropdown-divider"></li><li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right"></i>Keluar</a></li>
+                        @if ($isAdmin)<li><a class="dropdown-item" href="{{ route('settings.index') }}"><i class="bi bi-gear"></i>Pengaturan</a></li>@endif
+                        <li><hr class="dropdown-divider"></li><li><form method="post" action="{{ route('logout') }}">@csrf<button class="dropdown-item text-danger" type="submit"><i class="bi bi-box-arrow-right"></i>Keluar</button></form></li>
                     </ul>
                 </div>
             </div>
