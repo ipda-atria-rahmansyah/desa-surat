@@ -10,14 +10,18 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function showLogin(): View
+    public function showLogin(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('pages.auth.login');
     }
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->validated();
+        $credentials = [...$request->validated(), 'is_active' => true];
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             return back()

@@ -19,6 +19,11 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge(['username' => trim((string) $this->input('username'))]);
+    }
+
     public function attributes(): array
     {
         return [

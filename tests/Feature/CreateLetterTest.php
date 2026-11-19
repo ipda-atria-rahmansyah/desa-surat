@@ -2,13 +2,22 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateLetterTest extends TestCase
 {
+    use RefreshDatabase;
+
+    private function operator(): static
+    {
+        return $this->actingAs(User::factory()->operator()->create());
+    }
+
     public function test_create_letter_initial_steps_are_displayed(): void
     {
-        $this->get('/buat-surat')
+        $this->operator()->get('/buat-surat')
             ->assertOk()
             ->assertSee('Buat Surat')
             ->assertSee('1. Pilih Kategori Surat')
@@ -20,7 +29,7 @@ class CreateLetterTest extends TestCase
 
     public function test_create_letter_step_four_is_displayed(): void
     {
-        $this->get('/buat-surat/langkah-4')
+        $this->operator()->get('/buat-surat/langkah-4')
             ->assertOk()
             ->assertSee('Buat Surat')
             ->assertSee('Data Warga')
@@ -32,7 +41,7 @@ class CreateLetterTest extends TestCase
 
     public function test_create_letter_step_five_is_displayed(): void
     {
-        $this->get('/buat-surat/langkah-5')
+        $this->operator()->get('/buat-surat/langkah-5')
             ->assertOk()
             ->assertSee('Buat Surat')
             ->assertSee('Surat Berhasil Dibuat!')
@@ -44,7 +53,7 @@ class CreateLetterTest extends TestCase
 
     public function test_topbar_shows_active_context_and_actions(): void
     {
-        $this->get('/buat-surat')
+        $this->operator()->get('/buat-surat')
             ->assertOk()
             ->assertSee('Beranda / Persuratan / Buat Surat')
             ->assertSee('Notifikasi')

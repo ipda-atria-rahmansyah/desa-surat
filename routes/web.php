@@ -1,17 +1,25 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Pages\ModulePageController;
 use App\Support\DashboardData;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => view('pages.dashboard.dashboard', DashboardData::all()))->name('dashboard');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('login.store');
+});
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.store');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::view('/buat-surat', 'pages.letter.create-letter-step-1-3')->name('create-letter-step-1-to-3');
-
-Route::view('/buat-surat/langkah-4', 'pages.letter.create-letter-step-4')->name('create-letter-step-4');
-
-Route::view('/buat-surat/langkah-5', 'pages.letter.create-letter-step-5')->name('create-letter-step-5');
+Route::middleware('auth')->group(function () {
+    Route::get('/', fn () => view('pages.dashboard.dashboard', DashboardData::all()))->name('dashboard');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::view('/buat-surat', 'pages.letter.create-letter-step-1-3')->name('create-letter-step-1-to-3');
+    Route::view('/buat-surat/langkah-4', 'pages.letter.create-letter-step-4')->name('create-letter-step-4');
+    Route::view('/buat-surat/langkah-5', 'pages.letter.create-letter-step-5')->name('create-letter-step-5');
+    Route::get('/data-warga', [ModulePageController::class, 'warga'])->name('warga.index');
+    Route::get('/arsip-surat', [ModulePageController::class, 'arsip'])->name('arsip.index');
+    Route::get('/rekapitulasi-surat', [ModulePageController::class, 'rekap'])->name('rekap.index');
+    Route::middleware('role:admin')->prefix('pengaturan')->name('settings.')->group(function () {
+        Route::get('/', [ModulePageController::class, 'pengaturan'])->name('index');
+    });
+});
