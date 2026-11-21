@@ -83,6 +83,33 @@ body {
 .app-welcome { font-size: 14px; }
 .app-welcome-highlight { color: var(--app-primary); }
 .app-description { color: var(--app-text-muted); font-size: 11px; }
+.app-warga-description { color: var(--app-text-muted); font-size: 16px; }
+.btn.app-warga-add-button { width: 205px; min-height: 58px; padding: 0 18px; border-color: var(--app-primary); border-radius: 8px; color: white; background-color: var(--app-primary); font-size: 16px; font-weight: 600; }
+.app-warga-add-button i { font-size: 24px; line-height: 1; }
+.btn.app-warga-add-button:hover { border-color: var(--app-primary-dark); color: white; background-color: var(--app-primary-dark); }
+.app-warga-search { min-height: 56px; border: 1px solid var(--app-border); border-radius: 8px; background: white; overflow: hidden; }
+.app-warga-search .input-group-text { padding-left: 22px; border: 0; color: var(--app-body-color); background: transparent; font-size: 22px; }
+.app-warga-search .form-control { border: 0; color: var(--app-body-color); font-size: 16px; }
+.app-warga-search .form-control:focus { box-shadow: none; }
+.app-warga-card { overflow: hidden; }
+.app-warga-table { min-width: 760px; color: var(--app-body-color); font-size: 16px; }
+.app-warga-table thead th { padding: 18px 26px; background: var(--app-primary-soft); font-weight: 700; }
+.app-warga-table tbody td { padding: 16px 26px; border-color: var(--app-border); }
+.btn.app-warga-action { width: 48px; height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 8px; color: white; font-size: 18px; line-height: 1; }
+.btn.app-warga-action--view { border-color: var(--app-primary); background-color: var(--app-primary); }
+.btn.app-warga-action--view:hover { border-color: var(--app-primary-dark); background-color: var(--app-primary-dark); color: white; }
+.btn.app-warga-action--edit { border-color: var(--app-stat-blue); background-color: var(--app-stat-blue); }
+.btn.app-warga-action--edit:hover { border-color: color-mix(in srgb, var(--app-stat-blue) 78%, var(--app-body-color)); background-color: color-mix(in srgb, var(--app-stat-blue) 78%, var(--app-body-color)); color: white; }
+.btn.app-warga-action--delete { border-color: var(--bs-danger); background-color: var(--bs-danger); }
+.btn.app-warga-action--delete:hover { border-color: color-mix(in srgb, var(--bs-danger) 78%, var(--app-body-color)); background-color: color-mix(in srgb, var(--bs-danger) 78%, var(--app-body-color)); color: white; }
+.app-warga-footer { padding: 20px 26px; color: var(--app-body-color); font-size: 16px; }
+.app-warga-footer .pagination { display: flex; }
+.app-warga-footer .page-link { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid var(--app-border); border-radius: 8px; color: var(--app-text-muted); background: white; font-size: 18px; }
+.app-warga-footer .page-item.active .page-link { border-color: var(--app-primary); color: white; background: var(--app-primary); }
+
+@media (max-width: 575.98px) {
+    .btn.app-warga-add-button { width: 100%; }
+}
 .app-date-chip { min-height: 40px; padding: 0 12px; white-space: nowrap; background: white; border: 1px solid var(--app-border); border-radius: 8px; }
 .app-card { border: 1px solid var(--app-border); border-radius: 12px; box-shadow: 0 2px 8px rgb(27 43 34 / 4%); }
 .app-card .card-body { padding: 16px; }

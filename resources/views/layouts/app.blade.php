@@ -40,9 +40,20 @@
 
             @if ($isAdmin)
                 <div class="app-nav-group-label">ADMINISTRASI</div>
-                <a class="app-nav-link app-nav-toggle d-flex align-items-center gap-2 border-0 text-start w-100 text-decoration-none {{ $settingsActive ? 'active' : '' }}" href="{{ route('settings.index') }}">
+                <button class="app-nav-link app-nav-toggle d-flex align-items-center gap-2 border-0 text-start w-100 {{ $settingsActive ? 'active' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#settingsSubmenu" aria-expanded="{{ $settingsActive ? 'true' : 'false' }}" aria-controls="settingsSubmenu">
                     <i class="bi bi-gear-fill"></i><span class="flex-grow-1">Pengaturan</span><i class="bi bi-chevron-down app-nav-chevron"></i>
-                </a>
+                </button>
+                <div class="collapse {{ $settingsActive ? 'show' : '' }} app-nav-submenu" id="settingsSubmenu">
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#pengguna">
+                        <i class="bi bi-people"></i><span>Pengguna</span>
+                    </a>
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#pejabat-penandatangan">
+                        <i class="bi bi-person-badge"></i><span>Pejabat Penandatangan</span>
+                    </a>
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#data-desa">
+                        <i class="bi bi-building"></i><span>Data Desa</span>
+                    </a>
+                </div>
             @endif
         </nav>
         <div class="app-sidebar-footer mt-auto pt-3 flex-shrink-0">
