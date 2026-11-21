@@ -6,7 +6,7 @@
             <h1 class="app-page-title fw-bold mb-2">Data Warga</h1>
             <p class="app-warga-description mb-0">Kelola data warga untuk kebutuhan administrasi surat-menyurat.</p>
         </div>
-        <a href="#" class="btn app-warga-add-button d-inline-flex align-items-center justify-content-center gap-2">
+        <a href="{{ route('warga.create') }}" class="btn app-warga-add-button d-inline-flex align-items-center justify-content-center gap-2">
             <i class="bi bi-plus-lg"></i><span>Tambah Warga</span>
         </a>
     </div>

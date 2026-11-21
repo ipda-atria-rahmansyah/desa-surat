@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Pages\ModulePageController;
+use App\Http\Controllers\Warga\WargaController;
 use App\Support\DashboardData;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::view('/buat-surat/langkah-4', 'pages.letter.create-letter-step-4')->name('create-letter-step-4');
     Route::view('/buat-surat/langkah-5', 'pages.letter.create-letter-step-5')->name('create-letter-step-5');
     Route::get('/data-warga', [ModulePageController::class, 'warga'])->name('warga.index');
+    Route::get('/data-warga/tambah', [WargaController::class, 'create'])->name('warga.create');
+    Route::post('/data-warga', [WargaController::class, 'store'])->name('warga.store');
     Route::get('/arsip-surat', [ModulePageController::class, 'arsip'])->name('arsip.index');
     Route::get('/rekapitulasi-surat', [ModulePageController::class, 'rekap'])->name('rekap.index');
     Route::middleware('role:admin')->prefix('pengaturan')->name('settings.')->group(function () {

@@ -84,6 +84,26 @@ body {
 .app-welcome-highlight { color: var(--app-primary); }
 .app-description { color: var(--app-text-muted); font-size: 11px; }
 .app-warga-description { color: var(--app-text-muted); font-size: 16px; }
+.app-warga-form-page { width: 100%; }
+.app-warga-form-card { overflow: hidden; }
+.app-warga-form-heading { padding: 18px 24px; border-bottom: 1px solid var(--app-info-line); background: var(--app-primary-soft); }
+.app-warga-form-heading-icon { width: 40px; height: 40px; color: var(--app-primary-dark); background: white; font-size: 20px; }
+.app-warga-form .card-body { padding: 28px 26px; }
+.app-warga-form .form-label { color: var(--app-body-color); font-size: 16px; }
+.app-warga-form-input { min-height: 56px; border: 1px solid var(--app-border); border-radius: 8px; overflow: hidden; background: white; }
+.app-warga-form-input .input-group-text { border: 0; color: var(--app-primary-dark); background: transparent; font-size: 20px; }
+.app-warga-form-input .form-control { min-height: 54px; border: 0; color: var(--app-body-color); font-size: 16px; }
+.app-warga-form-input .form-control:focus { box-shadow: none; }
+.app-warga-form-input.is-invalid { border-color: var(--bs-danger); }
+.app-warga-form-textarea { min-height: 112px; }
+.app-warga-form-textarea .form-control { min-height: 110px; }
+.app-warga-form .invalid-feedback { font-size: 11px; }
+.app-warga-form-actions { padding: 16px 26px; border-top: 1px solid var(--app-border); background: white; }
+.btn.app-warga-form-cancel, .btn.app-warga-form-submit { min-height: 48px; padding: 0 20px; border-radius: 8px; font-size: 16px; font-weight: 600; }
+.btn.app-warga-form-cancel { min-width: 138px; border-color: var(--app-primary); color: var(--app-body-color); background: white; }
+.btn.app-warga-form-cancel:hover { color: var(--app-primary-dark); background: var(--app-primary-soft); }
+.btn.app-warga-form-submit { min-width: 182px; border-color: var(--app-primary); color: white; background: var(--app-primary); }
+.btn.app-warga-form-submit:hover { border-color: var(--app-primary-dark); background: var(--app-primary-dark); }
 .btn.app-warga-add-button { width: 205px; min-height: 58px; padding: 0 18px; border-color: var(--app-primary); border-radius: 8px; color: white; background-color: var(--app-primary); font-size: 16px; font-weight: 600; }
 .app-warga-add-button i { font-size: 24px; line-height: 1; }
 .btn.app-warga-add-button:hover { border-color: var(--app-primary-dark); color: white; background-color: var(--app-primary-dark); }
