@@ -6,6 +6,7 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import 'bootstrap';
 import Alpine from 'alpinejs';
+import './warga-search';
 
 const sidebarStorageKey = 'desa-surat.sidebar-collapsed';
 
