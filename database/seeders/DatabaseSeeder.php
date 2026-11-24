@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Surat::factory()
-            ->count(6)
+            ->count(15)
             ->state([
                 'kategori_surat_id' => $kategori->getKey(),
                 'jenis_surat_id' => $jenis->getKey(),

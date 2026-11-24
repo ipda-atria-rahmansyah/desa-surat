@@ -27,4 +27,16 @@ class KategoriSuratFactory extends Factory
             'deskripsi' => fake()->sentence(),
         ];
     }
+
+    /**
+     * Mengatur factory agar memakai salah satu kategori resmi sistem.
+     *
+     * @param  string  $kategori  Nilai kategori resmi yang disimpan di master.
+     */
+    public function resmi(string $kategori): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'nama_kategori' => $kategori,
+        ]);
+    }
 }
