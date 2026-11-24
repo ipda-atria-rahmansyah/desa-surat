@@ -29,4 +29,16 @@ class JenisSuratFactory extends Factory
             'is_active' => true,
         ];
     }
+
+    /**
+     * Menghubungkan jenis surat dengan kategori master yang sudah ada.
+     *
+     * @param  KategoriSurat  $kategori  Master kategori tujuan.
+     */
+    public function dalamKategori(KategoriSurat $kategori): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'kategori_surat_id' => $kategori->getKey(),
+        ]);
+    }
 }

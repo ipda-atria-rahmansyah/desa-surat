@@ -65,4 +65,23 @@ class SuratFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => ['warga_id' => $warga->getKey()]);
     }
+
+    /**
+     * Mengatur surat agar menggunakan master kategori resmi tertentu.
+     *
+     * @param  string  $kategori  Nilai kategori resmi sistem.
+     */
+    public function kategoriResmi(string $kategori): static
+    {
+        $master = KategoriSurat::query()->firstOrCreate(
+            ['nama_kategori' => $kategori],
+            KategoriSurat::factory()->make()->only(['kode_nomor', 'deskripsi'])
+        );
+        $jenis = JenisSurat::factory()->dalamKategori($master)->create();
+
+        return $this->state(fn (array $attributes): array => [
+            'kategori_surat_id' => $master->getKey(),
+            'jenis_surat_id' => $jenis->getKey(),
+        ]);
+    }
 }
