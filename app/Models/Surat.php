@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Surat extends Model
 {
+    // Factory dipakai untuk menyiapkan arsip fiktif pada test dan development.
+    use HasFactory;
+
     protected $table = 'tbtr_surat';
 
     protected $primaryKey = 'id_surat';

@@ -147,6 +147,31 @@ body {
 .app-table { --bs-table-bg: transparent; margin: 0; white-space: nowrap; font-size: 10px; }
 .app-table thead th { background: #f1f6f3; color: var(--app-body-color); font-weight: 600; }
 .app-table th, .app-table td { padding: 9px 7px; vertical-align: middle; }
+.app-arsip-page { min-width: 0; }
+.app-arsip-search, .app-arsip-date { min-height: 40px; overflow: hidden; border: 1px solid var(--app-border); border-radius: var(--bs-border-radius); background: white; }
+.app-arsip-search .input-group-text, .app-arsip-date .input-group-text { border: 0; color: var(--app-text-muted); background: transparent; }
+.app-arsip-search .form-control, .app-arsip-date .form-control { min-width: 0; border: 0; font-size: 12px; }
+.app-arsip-search .form-control:focus, .app-arsip-date .form-control:focus { box-shadow: none; }
+.app-arsip-filter { min-height: 40px; font-size: 12px; }
+.app-arsip-card { overflow: hidden; }
+.app-arsip-table { min-width: 860px; }
+.app-arsip-table thead th { padding: 12px 14px; background: var(--app-primary-soft); font-size: 11px; }
+.app-arsip-table tbody td { padding: 13px 14px; font-size: 12px; }
+.app-arsip-actions { display: inline-flex; align-items: center; justify-content: center; gap: 4px; vertical-align: middle; }
+.app-arsip-action { width: 48px; height: 42px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--app-text-muted); border-radius: 8px; background-color: white; color: var(--app-text-muted); font-size: 17px; line-height: 1; opacity: 1; }
+.app-arsip-action i { display: block; line-height: 1; }
+.app-arsip-action:disabled,
+.app-arsip-action--view,
+.app-arsip-action--view:disabled,
+.app-arsip-action--download,
+.app-arsip-action--download:disabled,
+.app-arsip-action--print,
+.app-arsip-action--print:disabled { background-color: white; border-color: var(--app-text-muted); color: var(--app-text-muted); opacity: 1; }
+.app-arsip-footer { padding: 16px; font-size: 11px; }
+.app-arsip-footer .pagination { margin: 0; gap: 4px; }
+.app-arsip-footer .page-link { min-width: 32px; min-height: 32px; display: grid; place-items: center; border: 1px solid var(--app-border); border-radius: var(--bs-border-radius); color: var(--app-text-muted); background: white; font-size: 11px; }
+.app-arsip-footer .page-item.active .page-link { border-color: var(--app-primary); color: white; background: var(--app-primary); }
+.app-arsip-alert { font-size: 11px; }
 .app-status { padding: 4px 9px; border-radius: 50rem; font-size: 10px; font-weight: 500; }
 .app-status--done { background: var(--app-badge-done-bg); color: var(--app-badge-done-text); }
 .app-status--wait { background: var(--app-badge-wait-bg); color: var(--app-badge-wait-text); }
