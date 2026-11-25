@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengguna', [ModulePageController::class, 'pengguna'])->name('pengguna');
         Route::get('/pengguna/tambah', [ModulePageController::class, 'buatPengguna'])->name('pengguna.create');
         Route::post('/pengguna', [ModulePageController::class, 'simpanPengguna'])->name('pengguna.store');
+        Route::post('/pengguna/{user}/toggle-status', [ModulePageController::class, 'toggleStatusPengguna'])->name('pengguna.toggle-status');
         Route::get('/pejabat-penandatangan', [ModulePageController::class, 'pejabatPenandatangan'])->name('pejabat-penandatangan');
         Route::get('/data-desa', [ModulePageController::class, 'dataDesa'])->name('data-desa');
     });

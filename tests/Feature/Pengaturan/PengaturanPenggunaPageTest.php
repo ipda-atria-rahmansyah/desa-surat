@@ -132,4 +132,22 @@ class PengaturanPenggunaPageTest extends TestCase
         $this->actingAs($operator)->get(route('settings.pengguna.create'))->assertForbidden();
         $this->actingAs($operator)->post(route('settings.pengguna.store'))->assertForbidden();
     }
+
+    /**
+     * Admin dapat membalik status pengguna, tetapi tidak dapat menonaktifkan akun sendiri.
+     */
+    public function test_admin_can_toggle_other_user_status_but_not_own_status(): void
+    {
+        $admin = User::factory()->admin()->create(['is_active' => true]);
+        $operator = User::factory()->operator()->create(['is_active' => true]);
+
+        $this->actingAs($admin)->post(route('settings.pengguna.toggle-status', $operator))
+            ->assertRedirect();
+        $this->assertDatabaseHas('tbmaster_users', ['id_user' => $operator->id_user, 'is_active' => false]);
+
+        $this->actingAs($admin)->post(route('settings.pengguna.toggle-status', $admin))
+            ->assertRedirect()
+            ->assertSessionHas('error');
+        $this->assertDatabaseHas('tbmaster_users', ['id_user' => $admin->id_user, 'is_active' => true]);
+    }
 }

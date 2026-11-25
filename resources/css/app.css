@@ -207,6 +207,12 @@ body {
 .app-pengaturan-page .btn { font-size: 14px; }
 .app-pengaturan-page > .card .text-body-secondary { font-size: 13px; }
 
+/* Switch status pada tabel pengguna: indikator non-interaktif agar status tidak berubah tanpa aksi backend. */
+.app-pengguna-table-switch { display: inline-flex; width: 42px; height: 24px; align-items: center; padding: 2px; border: 1px solid var(--app-border); border-radius: 999px; background-color: var(--app-border); vertical-align: middle; cursor: pointer; }
+.app-pengguna-table-switch-knob { width: 18px; height: 18px; border-radius: 50%; background-color: white; box-shadow: 0 1px 2px rgb(27 43 34 / 20%); transition: transform .15s ease-in-out; }
+.app-pengguna-table-switch.is-active { border-color: var(--app-primary); background-color: var(--app-primary); }
+.app-pengguna-table-switch.is-active .app-pengguna-table-switch-knob { transform: translateX(18px); }
+
 /* Form tambah pengguna: kelas khusus diperlukan untuk meniru struktur label-input horizontal pada acuan desain. */
 .app-pengguna-form-page { width: 100%; max-width: none; }
 .app-pengguna-form-title-icon { width: 56px; height: 56px; flex: 0 0 56px; color: var(--app-primary); font-size: 42px; }
@@ -228,11 +234,12 @@ body {
 .app-pengguna-input .form-control.is-invalid, .app-pengguna-input .form-select.is-invalid { background-image: none; }
 .app-pengguna-password-toggle { width: 48px; min-height: 46px; padding: 0; border: 0; color: var(--app-primary-dark); background: transparent; font-size: 17px; }
 .app-pengguna-switch { display: flex; align-items: center; gap: 12px; min-height: 40px; padding-left: 0; }
-.app-pengguna-switch-control { display: inline-flex; align-items: center; gap: 12px; min-height: 40px; color: var(--app-text-muted); font-size: 16px; cursor: pointer; }
-.app-pengguna-switch-track { display: block; width: 60px; height: 34px; padding: 3px; border: 2px solid var(--app-primary); border-radius: 999px; background-color: white; }
-.app-pengguna-switch-knob { display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--app-primary); transition: transform .15s ease-in-out; }
+.app-pengguna-switch-control { display: inline-flex; align-items: center; gap: 12px; min-height: 40px; color: var(--app-text-muted); font-size: 16px; cursor: pointer; user-select: none; }
+.app-pengguna-switch-track { display: block; width: 60px; height: 34px; padding: 3px; border: 2px solid var(--app-primary); border-radius: 999px; background-color: white; box-shadow: inset 0 0 0 1px rgb(46 139 74 / 8%); }
+.app-pengguna-switch-knob { display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--app-primary); box-shadow: 0 1px 3px rgb(27 43 34 / 20%); transition: transform .15s ease-in-out; }
 .app-pengguna-switch input:checked + .app-pengguna-switch-control .app-pengguna-switch-track { background-color: var(--app-primary); }
 .app-pengguna-switch input:checked + .app-pengguna-switch-control .app-pengguna-switch-knob { background-color: white; transform: translateX(24px); }
+.app-pengguna-switch input:focus-visible + .app-pengguna-switch-control .app-pengguna-switch-track { outline: 3px solid rgb(46 139 74 / 25%); outline-offset: 2px; }
 .app-pengguna-password-note { margin: 24px 0; padding: 14px; border: 1px solid #cfe6dc; border-radius: 8px; background: #eef7f4; color: var(--app-primary-dark); font-size: 13px; }
 .app-pengguna-password-note i { color: var(--app-primary); font-size: 22px; }
 .app-pengguna-form-actions { padding: 16px 0 24px; border-top: 1px solid var(--app-border); }

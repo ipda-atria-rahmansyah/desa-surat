@@ -227,6 +227,26 @@ class ModulePageController extends Controller
     }
 
     /**
+     * Membalik status aktif pengguna dari tabel Pengaturan.
+     *
+     * Admin tidak boleh menonaktifkan akunnya sendiri karena tindakan tersebut
+     * dapat memutus akses ke seluruh halaman Pengaturan.
+     *
+     * @param  User  $user  Pengguna yang statusnya akan dibalik.
+     * @return RedirectResponse Kembali ke daftar pengguna dengan pesan hasil aksi.
+     */
+    public function toggleStatusPengguna(User $user): RedirectResponse
+    {
+        if ($user->is(auth()->user())) {
+            return back()->with('error', 'Akun yang sedang digunakan tidak dapat dinonaktifkan.');
+        }
+
+        $user->update(['is_active' => ! $user->is_active]);
+
+        return back()->with('success', 'Status pengguna berhasil diperbarui.');
+    }
+
+    /**
      * Menampilkan placeholder halaman pejabat penandatangan.
      *
      * @return View Halaman Pengaturan Pejabat Penandatangan.

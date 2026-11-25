@@ -87,7 +87,14 @@
                                 <td class="fw-semibold">{{ $user->name }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td><span class="badge rounded-pill {{ $user->role === 'admin' ? 'bg-success-subtle text-success-emphasis' : 'bg-primary-subtle text-primary-emphasis' }}">{{ $user->role === 'admin' ? 'Administrator' : 'Operator' }}</span></td>
-                                <td><span class="badge rounded-pill {{ $user->is_active ? 'bg-success-subtle text-success-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }}">{{ $user->is_active ? 'Aktif' : 'Tidak Aktif' }}</span></td>
+                                <td>
+                                    <form method="POST" action="{{ route('settings.pengguna.toggle-status', $user) }}">
+                                        @csrf
+                                        <button class="app-pengguna-table-switch {{ $user->is_active ? 'is-active' : '' }}" type="submit" role="switch" aria-checked="{{ $user->is_active ? 'true' : 'false' }}" aria-label="Ubah status menjadi {{ $user->is_active ? 'tidak aktif' : 'aktif' }}">
+                                            <span class="app-pengguna-table-switch-knob" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </td>
                                 <td class="text-center">
                                     <div class="d-inline-flex gap-1">
                                         <button class="btn btn-sm btn-outline-primary" type="button" disabled aria-label="Ubah pengguna"><i class="bi bi-pencil-fill"></i></button>
