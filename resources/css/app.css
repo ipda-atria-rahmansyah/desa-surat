@@ -185,6 +185,28 @@ body {
 .app-chart-total { font-size: 14px; }
 .app-chart-caption { color: var(--app-text-muted); font-size: 10px; }
 .app-legend { width: 100%; max-width: 280px; font-size: 10px; }
+
+/* Tipografi Pengaturan Pengguna: menjaga tabel dan kontrol tetap terbaca meski .app-table global dipakai halaman lain. */
+.app-pengaturan-page .app-description { font-size: 14px; }
+.app-pengaturan-page > .row:first-of-type .app-card .card-body { padding: 20px; }
+.app-pengaturan-page > .row:first-of-type .app-stat-icon { width: 48px; height: 48px; flex-basis: 48px; font-size: 22px; }
+.app-pengaturan-page .app-stat-label { font-size: 13px; }
+.app-pengaturan-page .app-stat-value { font-size: 24px; }
+.app-pengaturan-page .app-card-title { font-size: 16px; }
+.app-pengaturan-page .input-group,
+.app-pengaturan-page .form-select { min-height: 44px; }
+.app-pengaturan-page .input-group-text { padding: 0 14px; font-size: 17px; }
+.app-pengaturan-page .input-group .form-control,
+.app-pengaturan-page .form-select { min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
+.app-pengaturan-page .app-table { font-size: 14px; }
+.app-pengaturan-page .app-table thead th { font-size: 13px; }
+.app-pengaturan-page .app-table tbody td { font-size: 14px; }
+.app-pengaturan-page .app-table .badge { font-size: 12px; }
+.app-pengaturan-page .form-control,
+.app-pengaturan-page .form-select,
+.app-pengaturan-page .btn { font-size: 14px; }
+.app-pengaturan-page > .card .text-body-secondary { font-size: 13px; }
+
 .app-legend-swatch { width: 9px; height: 9px; border-radius: 2px; }
 .app-legend-swatch--people { background: var(--app-donut-people); }
 .app-legend-swatch--business { background: var(--app-donut-business); }

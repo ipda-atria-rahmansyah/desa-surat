@@ -7,6 +7,7 @@ use App\Http\Requests\Arsip\FilterArsipRequest;
 use App\Http\Requests\Rekap\FilterRekapRequest;
 use App\Http\Requests\Warga\FilterWargaRequest;
 use App\Models\Surat;
+use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -154,8 +155,47 @@ class ModulePageController extends Controller
         ]);
     }
 
-    public function pengaturan(): View
+    /**
+     * Menampilkan daftar pengguna untuk halaman Pengaturan Admin.
+     *
+     * Hanya atribut non-sensitif yang dipilih agar password dan token sesi
+     * tidak pernah dikirim ke view. Ringkasan dihitung dari query pengguna
+     * yang sama sesuai kebutuhan tampilan M14.
+     *
+     * @return View Halaman Pengguna beserta data tabel dan ringkasan.
+     */
+    public function pengguna(): View
     {
-        return view('pages.pengaturan.index');
+        $users = User::query()
+            ->select(['id_user', 'name', 'username', 'role', 'is_active'])
+            ->orderBy('id_user')
+            ->get();
+
+        return view('pages.pengaturan.pengguna', [
+            'users' => $users,
+            'totalUsers' => $users->count(),
+            'totalOperators' => $users->where('role', 'operator')->count(),
+            'totalAdmins' => $users->where('role', 'admin')->count(),
+        ]);
+    }
+
+    /**
+     * Menampilkan placeholder halaman pejabat penandatangan.
+     *
+     * @return View Halaman Pengaturan Pejabat Penandatangan.
+     */
+    public function pejabatPenandatangan(): View
+    {
+        return view('pages.pengaturan.pejabat-penandatangan');
+    }
+
+    /**
+     * Menampilkan placeholder halaman data desa.
+     *
+     * @return View Halaman Pengaturan Data Desa.
+     */
+    public function dataDesa(): View
+    {
+        return view('pages.pengaturan.data-desa');
     }
 }
