@@ -23,6 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/arsip-surat', [ModulePageController::class, 'arsip'])->name('arsip.index');
     Route::get('/rekapitulasi-surat', [ModulePageController::class, 'rekap'])->name('rekap.index');
     Route::middleware('role:admin')->prefix('pengaturan')->name('settings.')->group(function () {
-        Route::get('/', [ModulePageController::class, 'pengaturan'])->name('index');
+        Route::get('/', fn () => redirect()->route('settings.pengguna'))->name('index');
+        Route::get('/pengguna', [ModulePageController::class, 'pengguna'])->name('pengguna');
+        Route::get('/pengguna/tambah', [ModulePageController::class, 'buatPengguna'])->name('pengguna.create');
+        Route::post('/pengguna', [ModulePageController::class, 'simpanPengguna'])->name('pengguna.store');
+        Route::post('/pengguna/{user}/toggle-status', [ModulePageController::class, 'toggleStatusPengguna'])->name('pengguna.toggle-status');
+        Route::get('/pejabat-penandatangan', [ModulePageController::class, 'pejabatPenandatangan'])->name('pejabat-penandatangan');
+        Route::get('/data-desa', [ModulePageController::class, 'dataDesa'])->name('data-desa');
     });
 });

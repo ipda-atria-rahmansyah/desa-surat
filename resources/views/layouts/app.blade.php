@@ -44,13 +44,13 @@
                     <i class="bi bi-gear-fill"></i><span class="flex-grow-1">Pengaturan</span><i class="bi bi-chevron-down app-nav-chevron"></i>
                 </button>
                 <div class="collapse {{ $settingsActive ? 'show' : '' }} app-nav-submenu" id="settingsSubmenu">
-                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#pengguna">
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none {{ request()->routeIs('settings.pengguna') ? 'active' : '' }}" href="{{ route('settings.pengguna') }}">
                         <i class="bi bi-people"></i><span>Pengguna</span>
                     </a>
-                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#pejabat-penandatangan">
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none {{ request()->routeIs('settings.pejabat-penandatangan') ? 'active' : '' }}" href="{{ route('settings.pejabat-penandatangan') }}">
                         <i class="bi bi-person-badge"></i><span>Pejabat Penandatangan</span>
                     </a>
-                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none" href="{{ route('settings.index') }}#data-desa">
+                    <a class="app-nav-sublink d-flex align-items-center gap-2 text-decoration-none {{ request()->routeIs('settings.data-desa') ? 'active' : '' }}" href="{{ route('settings.data-desa') }}">
                         <i class="bi bi-building"></i><span>Data Desa</span>
                     </a>
                 </div>

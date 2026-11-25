@@ -23,6 +23,6 @@ class RoleAccessTest extends TestCase
     public function test_admin_can_access_settings_and_sees_menu(): void
     {
         $this->actingAs(User::factory()->admin()->create())->get('/pengaturan')
-            ->assertOk()->assertSee('Pengaturan');
+            ->assertRedirect(route('settings.pengguna'));
     }
 }

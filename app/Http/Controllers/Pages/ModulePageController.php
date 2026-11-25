@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Arsip\FilterArsipRequest;
+use App\Http\Requests\Pengaturan\FilterPenggunaRequest;
+use App\Http\Requests\Pengaturan\StorePenggunaRequest;
 use App\Http\Requests\Rekap\FilterRekapRequest;
 use App\Http\Requests\Warga\FilterWargaRequest;
 use App\Models\Surat;
+use App\Models\User;
 use App\Models\Warga;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
@@ -154,8 +158,111 @@ class ModulePageController extends Controller
         ]);
     }
 
-    public function pengaturan(): View
+    /**
+     * Menampilkan daftar pengguna untuk halaman Pengaturan Admin.
+     *
+     * Hanya atribut non-sensitif yang dipilih agar password dan token sesi
+     * tidak pernah dikirim ke view. Ringkasan dihitung dari query pengguna
+     * yang sama sesuai kebutuhan tampilan M14.
+     *
+     * @return View Halaman Pengguna beserta data tabel dan ringkasan.
+     */
+    public function pengguna(FilterPenggunaRequest $request): View
     {
-        return view('pages.pengaturan.index');
+        $filters = $request->validated();
+        $query = User::query()
+            ->select(['id_user', 'name', 'username', 'role', 'is_active'])
+            ->orderBy('id_user');
+
+        if (($filters['q'] ?? '') !== '') {
+            $escaped = addcslashes($filters['q'], '%_\\');
+            $pattern = "%{$escaped}%";
+            $query->where(function ($query) use ($pattern): void {
+                $query->where('name', 'like', $pattern)
+                    ->orWhere('username', 'like', $pattern);
+            });
+        }
+
+        if (($filters['role'] ?? '') !== '') {
+            $query->where('role', $filters['role']);
+        }
+
+        $users = $query->paginate(10)->withQueryString();
+
+        return view('pages.pengaturan.penguna.pengguna', [
+            'users' => $users,
+            'totalUsers' => User::query()->count(),
+            'totalOperators' => User::query()->where('role', 'operator')->count(),
+            'totalAdmins' => User::query()->where('role', 'admin')->count(),
+            'search' => $filters['q'] ?? '',
+            'selectedRole' => $filters['role'] ?? '',
+        ]);
+    }
+
+    /**
+     * Menampilkan form tambah pengguna untuk Admin.
+     *
+     * @return View Form akun pengguna baru.
+     */
+    public function buatPengguna(): View
+    {
+        return view('pages.pengaturan.penguna.pengguna-tambah');
+    }
+
+    /**
+     * Menyimpan akun pengguna baru dengan password yang diproses cast hashed.
+     *
+     * @param  StorePenggunaRequest  $request  Data pengguna yang tervalidasi.
+     * @return RedirectResponse Kembali ke daftar pengguna dengan pesan sukses.
+     */
+    public function simpanPengguna(StorePenggunaRequest $request): RedirectResponse
+    {
+        User::create([
+            ...$request->safe()->except(['is_active']),
+            'email' => $request->validated('username').'@desa.local',
+            'is_active' => $request->boolean('is_active'),
+        ]);
+
+        return redirect()->route('settings.pengguna')->with('success', 'Pengguna berhasil ditambahkan.');
+    }
+
+    /**
+     * Membalik status aktif pengguna dari tabel Pengaturan.
+     *
+     * Admin tidak boleh menonaktifkan akunnya sendiri karena tindakan tersebut
+     * dapat memutus akses ke seluruh halaman Pengaturan.
+     *
+     * @param  User  $user  Pengguna yang statusnya akan dibalik.
+     * @return RedirectResponse Kembali ke daftar pengguna dengan pesan hasil aksi.
+     */
+    public function toggleStatusPengguna(User $user): RedirectResponse
+    {
+        if ($user->is(auth()->user())) {
+            return back()->with('error', 'Akun yang sedang digunakan tidak dapat dinonaktifkan.');
+        }
+
+        $user->update(['is_active' => ! $user->is_active]);
+
+        return back()->with('success', 'Status pengguna berhasil diperbarui.');
+    }
+
+    /**
+     * Menampilkan placeholder halaman pejabat penandatangan.
+     *
+     * @return View Halaman Pengaturan Pejabat Penandatangan.
+     */
+    public function pejabatPenandatangan(): View
+    {
+        return view('pages.pengaturan.pejabat-penandatangan');
+    }
+
+    /**
+     * Menampilkan placeholder halaman data desa.
+     *
+     * @return View Halaman Pengaturan Data Desa.
+     */
+    public function dataDesa(): View
+    {
+        return view('pages.pengaturan.data-desa');
     }
 }
