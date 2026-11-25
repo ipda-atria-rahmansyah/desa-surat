@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Arsip\FilterArsipRequest;
+use App\Http\Requests\Pengaturan\FilterPenggunaRequest;
 use App\Http\Requests\Rekap\FilterRekapRequest;
 use App\Http\Requests\Warga\FilterWargaRequest;
 use App\Models\Surat;
@@ -164,18 +165,35 @@ class ModulePageController extends Controller
      *
      * @return View Halaman Pengguna beserta data tabel dan ringkasan.
      */
-    public function pengguna(): View
+    public function pengguna(FilterPenggunaRequest $request): View
     {
-        $users = User::query()
+        $filters = $request->validated();
+        $query = User::query()
             ->select(['id_user', 'name', 'username', 'role', 'is_active'])
-            ->orderBy('id_user')
-            ->get();
+            ->orderBy('id_user');
+
+        if (($filters['q'] ?? '') !== '') {
+            $escaped = addcslashes($filters['q'], '%_\\');
+            $pattern = "%{$escaped}%";
+            $query->where(function ($query) use ($pattern): void {
+                $query->where('name', 'like', $pattern)
+                    ->orWhere('username', 'like', $pattern);
+            });
+        }
+
+        if (($filters['role'] ?? '') !== '') {
+            $query->where('role', $filters['role']);
+        }
+
+        $users = $query->paginate(10)->withQueryString();
 
         return view('pages.pengaturan.pengguna', [
             'users' => $users,
-            'totalUsers' => $users->count(),
-            'totalOperators' => $users->where('role', 'operator')->count(),
-            'totalAdmins' => $users->where('role', 'admin')->count(),
+            'totalUsers' => User::query()->count(),
+            'totalOperators' => User::query()->where('role', 'operator')->count(),
+            'totalAdmins' => User::query()->where('role', 'admin')->count(),
+            'search' => $filters['q'] ?? '',
+            'selectedRole' => $filters['role'] ?? '',
         ]);
     }
 

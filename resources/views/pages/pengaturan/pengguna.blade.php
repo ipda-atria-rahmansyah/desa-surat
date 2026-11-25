@@ -2,8 +2,8 @@
     Halaman daftar pengguna untuk Pengaturan Admin.
     Dipakai oleh route settings.pengguna dan menerima collection $users
     berisi atribut non-sensitif User serta tiga angka ringkasan.
-    Kontrol pencarian, filter, pagination, dan aksi dibuat nonaktif karena
-    M14 hanya mencakup tampilan, bukan CRUD atau endpoint pengguna.
+    Variabel $users berupa paginator; $search dan $selectedRole berisi filter
+    aktif untuk mempertahankan nilai form dan pagination.
 --}}
 @extends('layouts.app')
 
@@ -48,22 +48,24 @@
                 <h2 class="app-card-title fw-semibold mb-0">Daftar Pengguna</h2>
             </div>
 
-            <div class="row g-2 mb-3">
+            <form class="row g-2 mb-3" method="get" action="{{ route('settings.pengguna') }}" novalidate>
                 <div class="col-12 col-md">
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                        <input class="form-control" type="search" placeholder="Cari nama pengguna..." aria-label="Cari nama pengguna" disabled>
+                        <input class="form-control" type="search" name="q" value="{{ $search }}" placeholder="Cari nama pengguna..." aria-label="Cari nama pengguna" maxlength="100" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
-                    <select class="form-select" aria-label="Filter role" disabled>
-                        <option>Semua Role</option>
+                    <select class="form-select" name="role" aria-label="Filter role">
+                        <option value="" @selected($selectedRole === '')>Semua Role</option>
+                        <option value="admin" @selected($selectedRole === 'admin')>Administrator</option>
+                        <option value="operator" @selected($selectedRole === 'operator')>Operator</option>
                     </select>
                 </div>
                 <div class="col-12 col-md-auto">
-                    <button class="btn btn-primary w-100" type="button" disabled><i class="bi bi-plus-lg me-1"></i>Tambah Pengguna</button>
+                    <button class="btn btn-primary w-100" type="submit"><i class="bi bi-search me-1"></i>Filter</button>
                 </div>
-            </div>
+            </form>
 
             <div class="table-responsive">
                 <table class="table app-table align-middle mb-0">
@@ -73,7 +75,7 @@
                     <tbody>
                         @forelse ($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $users->firstItem() + $loop->index }}</td>
                                 <td class="fw-semibold">{{ $user->name }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td><span class="badge rounded-pill {{ $user->role === 'admin' ? 'bg-success-subtle text-success-emphasis' : 'bg-primary-subtle text-primary-emphasis' }}">{{ $user->role === 'admin' ? 'Administrator' : 'Operator' }}</span></td>
@@ -93,14 +95,10 @@
             </div>
 
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 pt-3">
-                <small class="text-body-secondary">Menampilkan {{ $users->count() ? 1 : 0 }}–{{ $users->count() }} dari {{ $users->count() }} data</small>
-                <nav aria-label="Pagination pengguna">
-                    <ul class="pagination pagination-sm mb-0">
-                        <li class="page-item disabled"><button class="page-link" type="button" disabled><i class="bi bi-chevron-left"></i></button></li>
-                        <li class="page-item active"><button class="page-link" type="button" disabled>1</button></li>
-                        <li class="page-item disabled"><button class="page-link" type="button" disabled><i class="bi bi-chevron-right"></i></button></li>
-                    </ul>
-                </nav>
+                <small class="text-body-secondary">Menampilkan {{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }} dari {{ $users->total() }} data</small>
+                @if ($users->hasPages())
+                    {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
+                @endif
             </div>
         </div>
     </div>

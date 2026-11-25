@@ -68,4 +68,31 @@ class PengaturanPenggunaPageTest extends TestCase
             $this->actingAs($operator)->get(route($route))->assertForbidden();
         }
     }
+
+    /**
+     * Admin dapat mencari pengguna berdasarkan nama/username dan memfilter role.
+     */
+    public function test_admin_can_filter_users_by_search_and_role(): void
+    {
+        $admin = User::factory()->admin()->create();
+        User::factory()->operator()->create(['name' => 'Operator Desa', 'username' => 'operator.desa']);
+        User::factory()->admin()->create(['name' => 'Admin Cadangan', 'username' => 'admin.cadangan']);
+
+        $this->actingAs($admin)->get(route('settings.pengguna', ['q' => 'operator', 'role' => 'operator']))
+            ->assertOk()
+            ->assertSee('Operator Desa')
+            ->assertDontSee('Admin Cadangan')
+            ->assertSee('value="operator"', false);
+    }
+
+    /**
+     * Filter role di luar daftar resmi ditolak oleh backend dalam bahasa Indonesia.
+     */
+    public function test_invalid_user_role_filter_is_rejected(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)->get(route('settings.pengguna', ['role' => 'superadmin']))
+            ->assertInvalid(['role']);
+    }
 }
