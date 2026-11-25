@@ -207,6 +207,49 @@ body {
 .app-pengaturan-page .btn { font-size: 14px; }
 .app-pengaturan-page > .card .text-body-secondary { font-size: 13px; }
 
+/* Form tambah pengguna: kelas khusus diperlukan untuk meniru struktur label-input horizontal pada acuan desain. */
+.app-pengguna-form-page { width: 100%; max-width: none; }
+.app-pengguna-form-title-icon { width: 56px; height: 56px; flex: 0 0 56px; color: var(--app-primary); font-size: 42px; }
+.app-pengguna-form-card { overflow: hidden; }
+.app-pengguna-form-heading { min-height: 64px; padding: 0 26px; border-bottom: 1px solid var(--app-info-line); background: var(--app-primary-soft); color: var(--app-primary-dark); }
+.app-pengguna-form-heading i { font-size: 30px; }
+.app-pengguna-form-heading .app-card-title { font-size: 20px; }
+.app-pengguna-form-card .card-body { padding: 24px 26px 0; }
+.app-pengguna-form-fields { display: flex; flex-direction: column; gap: 18px; }
+.app-pengguna-form-row { display: grid; grid-template-columns: 240px minmax(0, 1fr); align-items: center; column-gap: 14px; }
+.app-pengguna-form-row .form-label { display: flex; align-items: center; margin: 0; color: var(--app-body-color); font-size: 16px; font-weight: 600; }
+.app-pengguna-form-row .form-label i { flex: 0 0 auto; color: var(--app-primary-dark); font-size: 17px; }
+.app-pengguna-input { min-height: 48px; overflow: hidden; border: 1px solid var(--app-border); border-radius: 8px; background: white; }
+.app-pengguna-input .input-group-text { width: 52px; justify-content: center; border: 0; background: transparent; color: var(--app-primary-dark); font-size: 17px; }
+.app-pengguna-input .form-control, .app-pengguna-input .form-select { min-height: 46px; border: 0; color: var(--app-body-color); font-size: 16px; }
+.app-pengguna-input .form-control:focus, .app-pengguna-input .form-select:focus { box-shadow: none; }
+.app-pengguna-input .form-control::placeholder { color: var(--app-text-muted); opacity: 1; }
+.app-pengguna-input.is-invalid { border-color: var(--bs-danger); }
+.app-pengguna-input .form-control.is-invalid, .app-pengguna-input .form-select.is-invalid { background-image: none; }
+.app-pengguna-password-toggle { width: 48px; min-height: 46px; padding: 0; border: 0; color: var(--app-primary-dark); background: transparent; font-size: 17px; }
+.app-pengguna-switch { display: flex; align-items: center; gap: 12px; min-height: 40px; padding-left: 0; }
+.app-pengguna-switch-control { display: inline-flex; align-items: center; gap: 12px; min-height: 40px; color: var(--app-text-muted); font-size: 16px; cursor: pointer; }
+.app-pengguna-switch-track { display: block; width: 60px; height: 34px; padding: 3px; border: 2px solid var(--app-primary); border-radius: 999px; background-color: white; }
+.app-pengguna-switch-knob { display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--app-primary); transition: transform .15s ease-in-out; }
+.app-pengguna-switch input:checked + .app-pengguna-switch-control .app-pengguna-switch-track { background-color: var(--app-primary); }
+.app-pengguna-switch input:checked + .app-pengguna-switch-control .app-pengguna-switch-knob { background-color: white; transform: translateX(24px); }
+.app-pengguna-password-note { margin: 24px 0; padding: 14px; border: 1px solid #cfe6dc; border-radius: 8px; background: #eef7f4; color: var(--app-primary-dark); font-size: 13px; }
+.app-pengguna-password-note i { color: var(--app-primary); font-size: 22px; }
+.app-pengguna-form-actions { padding: 16px 0 24px; border-top: 1px solid var(--app-border); }
+.app-pengguna-back-button, .app-pengguna-submit-button { min-height: 48px; padding: 0 24px; border-radius: 8px; font-size: 16px; font-weight: 600; }
+.app-pengguna-back-button { border: 1px solid var(--app-primary) !important; color: var(--app-primary-dark) !important; background-color: var(--app-primary-soft) !important; }
+.app-pengguna-submit-button { border: 1px solid var(--app-primary) !important; color: white !important; background-color: var(--app-primary) !important; }
+.app-pengguna-back-button:hover { color: var(--app-primary-dark); background: var(--app-primary-soft); }
+.app-pengguna-submit-button:hover { border-color: var(--app-primary-dark); color: white; background: var(--app-primary-dark); }
+
+@media (max-width: 767.98px) {
+    .app-pengguna-form-row { grid-template-columns: 1fr; row-gap: 6px; }
+    .app-pengguna-form-row .form-label { font-size: 14px; }
+    .app-pengguna-form-heading { padding: 0 16px; }
+    .app-pengguna-form-card .card-body { padding: 20px 16px 0; }
+    .app-pengguna-form-actions { padding-bottom: 20px; }
+}
+
 .app-legend-swatch { width: 9px; height: 9px; border-radius: 2px; }
 .app-legend-swatch--people { background: var(--app-donut-people); }
 .app-legend-swatch--business { background: var(--app-donut-business); }

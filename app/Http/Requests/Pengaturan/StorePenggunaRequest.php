@@ -11,21 +11,13 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StorePenggunaRequest extends FormRequest
 {
-    /**
-     * Hanya Admin yang boleh membuat akun pengguna.
-     *
-     * @return bool
-     */
+    /** Hanya Admin yang boleh membuat akun pengguna. */
     public function authorize(): bool
     {
         return $this->user()?->role === 'admin';
     }
 
-    /**
-     * Menentukan aturan akun pengguna baru.
-     *
-     * @return array<string, array<int, string>>
-     */
+    /** Menentukan aturan akun pengguna baru. */
     public function rules(): array
     {
         return [
@@ -33,14 +25,11 @@ class StorePenggunaRequest extends FormRequest
             'username' => ['required', 'alpha_dash', 'min:4', 'max:50', 'unique:tbmaster_users,username'],
             'role' => ['required', 'in:admin,operator'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'is_active' => ['nullable', 'boolean'],
         ];
     }
 
-    /**
-     * Merapikan nama dan username sebelum validasi agar data konsisten.
-     *
-     * @return void
-     */
+    /** Merapikan nama dan username sebelum validasi agar data konsisten. */
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -49,11 +38,7 @@ class StorePenggunaRequest extends FormRequest
         ]);
     }
 
-    /**
-     * Menentukan label validasi dalam bahasa Indonesia.
-     *
-     * @return array<string, string>
-     */
+    /** Menentukan label validasi dalam bahasa Indonesia. */
     public function attributes(): array
     {
         return [
@@ -65,11 +50,7 @@ class StorePenggunaRequest extends FormRequest
         ];
     }
 
-    /**
-     * Menentukan pesan validasi ramah untuk form Admin.
-     *
-     * @return array<string, string>
-     */
+    /** Menentukan pesan validasi ramah untuk form Admin. */
     public function messages(): array
     {
         return [

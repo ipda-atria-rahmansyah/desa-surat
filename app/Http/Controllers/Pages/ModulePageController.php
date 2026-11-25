@@ -11,8 +11,8 @@ use App\Http\Requests\Warga\FilterWargaRequest;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
-use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
@@ -189,7 +189,7 @@ class ModulePageController extends Controller
 
         $users = $query->paginate(10)->withQueryString();
 
-        return view('pages.pengaturan.pengguna', [
+        return view('pages.pengaturan.penguna.pengguna', [
             'users' => $users,
             'totalUsers' => User::query()->count(),
             'totalOperators' => User::query()->where('role', 'operator')->count(),
@@ -206,7 +206,7 @@ class ModulePageController extends Controller
      */
     public function buatPengguna(): View
     {
-        return view('pages.pengaturan.pengguna-tambah');
+        return view('pages.pengaturan.penguna.pengguna-tambah');
     }
 
     /**
@@ -218,8 +218,9 @@ class ModulePageController extends Controller
     public function simpanPengguna(StorePenggunaRequest $request): RedirectResponse
     {
         User::create([
-            ...$request->validated(),
-            'is_active' => true,
+            ...$request->safe()->except(['is_active']),
+            'email' => $request->validated('username').'@desa.local',
+            'is_active' => $request->boolean('is_active'),
         ]);
 
         return redirect()->route('settings.pengguna')->with('success', 'Pengguna berhasil ditambahkan.');

@@ -5,6 +5,27 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import 'bootstrap';
+
+/**
+ * Mengatur tombol tampil/sembunyi password pada form tambah pengguna.
+ * Interaksi ini hanya mengubah tipe input di browser dan tidak menyimpan password.
+ */
+document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const input = document.getElementById(button.dataset.passwordToggle);
+        const icon = button.querySelector('i');
+
+        if (!input || !icon) {
+            return;
+        }
+
+        const isVisible = input.type === 'text';
+        input.type = isVisible ? 'password' : 'text';
+        icon.classList.toggle('bi-eye-slash-fill', isVisible);
+        icon.classList.toggle('bi-eye-fill', !isVisible);
+        button.setAttribute('aria-label', isVisible ? 'Tampilkan password' : 'Sembunyikan password');
+    });
+});
 import Alpine from 'alpinejs';
 import './warga-search';
 
