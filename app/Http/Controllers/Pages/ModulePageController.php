@@ -255,14 +255,4 @@ class ModulePageController extends Controller
     {
         return view('pages.pengaturan.pejabat-penandatangan');
     }
-
-    /**
-     * Menampilkan placeholder halaman data desa.
-     *
-     * @return View Halaman Pengaturan Data Desa.
-     */
-    public function dataDesa(): View
-    {
-        return view('pages.pengaturan.data-desa');
-    }
 }
