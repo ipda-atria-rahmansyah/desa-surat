@@ -87,6 +87,38 @@ body {
 .app-welcome { font-size: 14px; }
 .app-welcome-highlight { color: var(--app-primary); }
 .app-description { color: var(--app-text-muted); font-size: 11px; }
+.app-data-desa-page-heading { position: relative; }
+.app-data-desa-title-icon { width: 64px; height: 64px; flex: 0 0 64px; font-size: 34px; }
+.app-data-desa-status { padding: 8px 12px; border: 1px solid var(--app-info-line); border-radius: 50rem; color: var(--app-primary-dark); background: var(--app-info-bg); font-size: 11px; font-weight: 600; }
+.app-data-desa-card { border: 2px solid var(--app-primary); border-top: 5px solid var(--app-primary-dark); box-shadow: 0 8px 22px rgb(27 43 34 / 7%); }
+.app-data-desa-card-header { min-height: 64px; padding: 0 24px; color: white; background: var(--app-primary); font-size: 18px; }
+.app-data-desa-card-header i { font-size: 20px; }
+.app-data-desa-logo { min-height: 330px; color: var(--app-primary-dark); background: linear-gradient(145deg, var(--app-primary-soft), var(--app-info-bg)); }
+.app-data-desa-logo-mark { width: 82px; height: 82px; color: white; background: var(--app-primary); box-shadow: 0 8px 18px rgb(46 139 74 / 22%); font-size: 38px; }
+.app-data-desa-logo-title { font-size: 15px; }
+.app-data-desa-logo-caption { margin-top: 6px; color: var(--app-text-muted); font-size: 11px; }
+.app-data-desa-logo-image { max-width: 100%; max-height: 220px; object-fit: contain; }
+.app-data-desa-details-wrap { min-width: 0; }
+.app-data-desa-details-title { color: var(--app-primary-dark); font-size: 18px; }
+.app-data-desa-details { width: 100%; align-self: stretch; overflow: hidden; border: 1px solid var(--app-border); border-radius: 10px; background: white; font-size: 15px; }
+.app-data-desa-details > .row { margin: 0; min-height: 64px; align-items: center; border-color: var(--app-border) !important; }
+.app-data-desa-details dt, .app-data-desa-details dd { padding: 10px 16px; }
+.app-data-desa-details dt { color: var(--app-body-color); font-weight: 500; }
+.app-data-desa-details dd { color: var(--app-body-color); }
+.app-data-desa-detail-icon { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 32px; border-radius: 50%; color: var(--app-primary-dark); background: var(--app-primary-soft); }
+.app-data-desa-alert { min-height: 48px; padding: 10px 14px; }
+.app-data-desa-edit-button { min-width: 190px; }
+
+@media (max-width: 767.98px) {
+    .app-data-desa-page-heading { align-items: flex-start !important; flex-wrap: wrap; }
+    .app-data-desa-status { width: 100%; margin-left: 80px !important; }
+    .app-data-desa-title-icon { width: 56px; height: 56px; flex-basis: 56px; font-size: 28px; }
+    .app-data-desa-card-header { padding: 0 16px; }
+    .app-data-desa-logo { min-height: 240px; }
+    .app-data-desa-details > .row { min-height: 0; padding-top: 8px !important; padding-bottom: 8px !important; }
+    .app-data-desa-details dt, .app-data-desa-details dd { padding: 6px 12px; }
+    .app-data-desa-edit-button { width: 100%; }
+}
 .app-warga-description { color: var(--app-text-muted); font-size: 16px; }
 .app-warga-form-page { width: 100%; }
 .app-warga-form-card { overflow: hidden; }
