@@ -95,4 +95,41 @@ class PengaturanPenggunaPageTest extends TestCase
         $this->actingAs($admin)->get(route('settings.pengguna', ['role' => 'superadmin']))
             ->assertInvalid(['role']);
     }
+
+    /**
+     * Admin dapat membuka form dan menyimpan pengguna baru dengan password hashed.
+     */
+    public function test_admin_can_create_user_from_settings(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)->get(route('settings.pengguna.create'))
+            ->assertOk()
+            ->assertSee('Tambah Pengguna');
+
+        $this->actingAs($admin)->post(route('settings.pengguna.store'), [
+            'name' => 'Operator Baru',
+            'username' => 'operatorbaru',
+            'role' => 'operator',
+            'password' => 'passwordbaru',
+            'password_confirmation' => 'passwordbaru',
+        ])->assertRedirect(route('settings.pengguna'));
+
+        $this->assertDatabaseHas('tbmaster_users', [
+            'username' => 'operatorbaru',
+            'role' => 'operator',
+            'is_active' => true,
+        ]);
+    }
+
+    /**
+     * Operator tidak dapat membuka atau mengirim form tambah pengguna.
+     */
+    public function test_operator_cannot_create_user(): void
+    {
+        $operator = User::factory()->operator()->create();
+
+        $this->actingAs($operator)->get(route('settings.pengguna.create'))->assertForbidden();
+        $this->actingAs($operator)->post(route('settings.pengguna.store'))->assertForbidden();
+    }
 }

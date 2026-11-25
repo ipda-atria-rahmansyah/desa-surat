@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->prefix('pengaturan')->name('settings.')->group(function () {
         Route::get('/', fn () => redirect()->route('settings.pengguna'))->name('index');
         Route::get('/pengguna', [ModulePageController::class, 'pengguna'])->name('pengguna');
+        Route::get('/pengguna/tambah', [ModulePageController::class, 'buatPengguna'])->name('pengguna.create');
+        Route::post('/pengguna', [ModulePageController::class, 'simpanPengguna'])->name('pengguna.store');
         Route::get('/pejabat-penandatangan', [ModulePageController::class, 'pejabatPenandatangan'])->name('pejabat-penandatangan');
         Route::get('/data-desa', [ModulePageController::class, 'dataDesa'])->name('data-desa');
     });

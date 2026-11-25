@@ -9,6 +9,10 @@
 
 @section('content')
 <div id="pengguna" class="app-pengaturan-page">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+    @endif
+
     <div class="mb-4">
         <h1 class="app-page-title fw-bold mb-2">Pengaturan Pengguna</h1>
         <p class="app-description mb-0">Kelola akun pengguna yang dapat mengakses sistem.</p>
@@ -48,7 +52,7 @@
                 <h2 class="app-card-title fw-semibold mb-0">Daftar Pengguna</h2>
             </div>
 
-            <form class="row g-2 mb-3" method="get" action="{{ route('settings.pengguna') }}" novalidate>
+            <form class="row g-2 mb-3 d-flex align-items-center" method="get" action="{{ route('settings.pengguna') }}" novalidate>
                 <div class="col-12 col-md">
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
@@ -63,7 +67,11 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-auto">
-                    <button class="btn btn-primary w-100" type="submit"><i class="bi bi-search me-1"></i>Filter</button>
+                    <div class="d-grid d-sm-flex gap-2">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Filter</button>
+                        <a class="btn btn-outline-secondary" href="{{ route('settings.pengguna') }}">Reset Filter</a>
+                        <a class="btn btn-success" href="{{ route('settings.pengguna.create') }}"><i class="bi bi-plus-lg me-1"></i>Tambah Pengguna</a>
+                    </div>
                 </div>
             </form>
 

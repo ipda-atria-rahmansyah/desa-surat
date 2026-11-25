@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Arsip\FilterArsipRequest;
 use App\Http\Requests\Pengaturan\FilterPenggunaRequest;
+use App\Http\Requests\Pengaturan\StorePenggunaRequest;
 use App\Http\Requests\Rekap\FilterRekapRequest;
 use App\Http\Requests\Warga\FilterWargaRequest;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
@@ -195,6 +197,32 @@ class ModulePageController extends Controller
             'search' => $filters['q'] ?? '',
             'selectedRole' => $filters['role'] ?? '',
         ]);
+    }
+
+    /**
+     * Menampilkan form tambah pengguna untuk Admin.
+     *
+     * @return View Form akun pengguna baru.
+     */
+    public function buatPengguna(): View
+    {
+        return view('pages.pengaturan.pengguna-tambah');
+    }
+
+    /**
+     * Menyimpan akun pengguna baru dengan password yang diproses cast hashed.
+     *
+     * @param  StorePenggunaRequest  $request  Data pengguna yang tervalidasi.
+     * @return RedirectResponse Kembali ke daftar pengguna dengan pesan sukses.
+     */
+    public function simpanPengguna(StorePenggunaRequest $request): RedirectResponse
+    {
+        User::create([
+            ...$request->validated(),
+            'is_active' => true,
+        ]);
+
+        return redirect()->route('settings.pengguna')->with('success', 'Pengguna berhasil ditambahkan.');
     }
 
     /**
