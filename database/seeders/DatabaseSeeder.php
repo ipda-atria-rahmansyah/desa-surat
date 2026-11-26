@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\JenisSurat;
 use App\Models\KategoriSurat;
+use App\Models\Pejabat;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
@@ -54,5 +55,7 @@ class DatabaseSeeder extends Seeder
                 'tanggal_surat' => now()->subDays($sequence->index)->toDateString(),
             ])
             ->create();
+
+        Pejabat::factory()->count(4)->create();
     }
 }
