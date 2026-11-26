@@ -35,5 +35,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/pejabat-penandatangan/tambah', [PejabatController::class, 'create'])->name('pejabat-penandatangan.create');
         Route::post('/pejabat-penandatangan', [PejabatController::class, 'store'])->name('pejabat-penandatangan.store');
         Route::get('/data-desa', [DesaController::class, 'show'])->name('data-desa');
+        Route::patch('/data-desa', [DesaController::class, 'update'])->name('data-desa.update');
     });
 });
