@@ -1,13 +1,28 @@
 {{--
-    Halaman baca Informasi Data Desa untuk Admin.
-    Dipakai oleh route settings.data-desa.
+    Halaman informasi dan modal edit Data Desa untuk Admin.
+    Dipakai oleh route settings.data-desa; form modal mengirim ke
+    route settings.data-desa.update.
     Variabel: $desa (?App\Models\Desa) record pertama berdasarkan id_desa atau null.
-    Tombol Edit Data Desa sengaja hanya visual sesuai scope M16.
+    Error form memakai error bag updateDesa.
 --}}
 @extends('layouts.app')
 
 @section('content')
 <div id="data-desa">
+    @if (session('success'))
+        <div class="alert alert-success d-flex align-items-center gap-2" role="alert">
+            <i class="bi bi-check-circle-fill flex-shrink-0"></i>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
+
     <div class="app-data-desa-page-heading d-flex align-items-center justify-content-between gap-3 mb-4">
        
         <div>
@@ -73,9 +88,69 @@
 
 
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary app-touch-target app-data-desa-edit-button">
+            <button type="button" class="btn btn-primary app-touch-target app-data-desa-edit-button" data-bs-toggle="modal" data-bs-target="#editDataDesaModal">
                 <i class="bi bi-pencil-square me-2"></i>Edit Data Desa
             </button>
+        </div>
+
+        <div class="modal fade" id="editDataDesaModal" tabindex="-1" aria-labelledby="editDataDesaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5 fw-bold" id="editDataDesaModalLabel">Edit Data Desa</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <form method="POST" action="{{ route('settings.data-desa.update') }}" enctype="multipart/form-data" novalidate data-update-desa-form>
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label for="nama_desa" class="form-label fw-semibold">Nama Desa <span class="text-danger">*</span></label>
+                                    <input id="nama_desa" name="nama_desa" type="text" class="form-control @error('nama_desa', 'updateDesa') is-invalid @enderror" value="{{ old('nama_desa', $desa->nama_desa) }}" maxlength="150" required>
+                                    @error('nama_desa', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="kecamatan" class="form-label fw-semibold">Kecamatan <span class="text-danger">*</span></label>
+                                    <input id="kecamatan" name="kecamatan" type="text" class="form-control @error('kecamatan', 'updateDesa') is-invalid @enderror" value="{{ old('kecamatan', $desa->kecamatan) }}" maxlength="100" required>
+                                    @error('kecamatan', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="kabupaten" class="form-label fw-semibold">Kabupaten <span class="text-danger">*</span></label>
+                                    <input id="kabupaten" name="kabupaten" type="text" class="form-control @error('kabupaten', 'updateDesa') is-invalid @enderror" value="{{ old('kabupaten', $desa->kabupaten) }}" maxlength="100" required>
+                                    @error('kabupaten', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="provinsi" class="form-label fw-semibold">Provinsi <span class="text-danger">*</span></label>
+                                    <input id="provinsi" name="provinsi" type="text" class="form-control @error('provinsi', 'updateDesa') is-invalid @enderror" value="{{ old('provinsi', $desa->provinsi) }}" maxlength="100" required>
+                                    @error('provinsi', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12">
+                                    <label for="alamat_kantor" class="form-label fw-semibold">Alamat Kantor</label>
+                                    <textarea id="alamat_kantor" name="alamat_kantor" class="form-control @error('alamat_kantor', 'updateDesa') is-invalid @enderror" rows="3">{{ old('alamat_kantor', $desa->alamat_kantor) }}</textarea>
+                                    @error('alamat_kantor', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="kode_pos" class="form-label fw-semibold">Kode Pos</label>
+                                    <input id="kode_pos" name="kode_pos" type="text" class="form-control @error('kode_pos', 'updateDesa') is-invalid @enderror" value="{{ old('kode_pos', $desa->kode_pos) }}" inputmode="numeric" maxlength="10" pattern="\d{1,10}">
+                                    @error('kode_pos', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="logo" class="form-label fw-semibold">Logo</label>
+                                    <input id="logo" name="logo" type="file" class="form-control @error('logo', 'updateDesa') is-invalid @enderror" accept="image/png,image/jpeg">
+                                    @error('logo', 'updateDesa')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary" data-submit-update-desa>
+                                <i class="bi bi-check-lg me-2"></i><span data-submit-label>Simpan</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     @else
         <div class="alert app-alert-info app-data-desa-alert d-flex align-items-center gap-2 mb-3" role="alert">
@@ -85,3 +160,28 @@
     @endif
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    /**
+     * Membuka kembali modal Data Desa setelah validasi gagal dan mencegah
+     * klik ganda yang dapat mengirim form perubahan lebih dari satu kali.
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalElement = document.getElementById('editDataDesaModal');
+        const form = document.querySelector('[data-update-desa-form]');
+        const submit = form?.querySelector('[data-submit-update-desa]');
+
+        if (!modalElement || !form || !submit) return;
+
+        if ({{ $errors->updateDesa->isNotEmpty() ? 'true' : 'false' }}) {
+            bootstrap.Modal.getOrCreateInstance(modalElement).show();
+        }
+
+        form.addEventListener('submit', () => {
+            submit.disabled = true;
+            submit.querySelector('[data-submit-label]').textContent = 'Menyimpan...';
+        }, { once: true });
+    });
+</script>
+@endpush
