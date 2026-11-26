@@ -51,7 +51,7 @@
                     @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-12 col-md-auto d-grid">
-                    <button class="btn btn-success" type="button" disabled aria-disabled="true"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Tambah Penjabat</button>
+                    <a class="btn btn-success" href="{{ route('settings.pejabat-penandatangan.create') }}"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Tambah Penjabat</a>
                 </div>
             </form>
         </div>

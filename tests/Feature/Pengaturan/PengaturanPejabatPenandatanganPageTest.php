@@ -88,7 +88,7 @@ class PengaturanPejabatPenandatanganPageTest extends TestCase
 
     /**
      * Kondisi kosong tetap memakai pesan yang disepakati dan kontrol visual
-     * tidak memiliki form/tautan aksi aktif.
+     * memiliki tautan tambah aktif, sedangkan kontrol edit/hapus/switch tetap visual.
      */
     public function test_empty_state_and_read_only_controls_are_rendered(): void
     {
@@ -98,7 +98,7 @@ class PengaturanPejabatPenandatanganPageTest extends TestCase
             ->assertOk()
             ->assertSee('Data pejabat tidak ditemukan.')
             ->assertSee('Tambah Penjabat')
-            ->assertSee('disabled', false)
-            ->assertDontSee('settings.pejabat.create');
+            ->assertSee(route('settings.pejabat-penandatangan.create'), false)
+            ->assertSee('Aksi', false);
     }
 }
