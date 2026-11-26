@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Arsip\FilterArsipRequest;
+use App\Http\Requests\Pengaturan\FilterPejabatRequest;
 use App\Http\Requests\Pengaturan\FilterPenggunaRequest;
 use App\Http\Requests\Pengaturan\StorePenggunaRequest;
 use App\Http\Requests\Rekap\FilterRekapRequest;
 use App\Http\Requests\Warga\FilterWargaRequest;
+use App\Models\Pejabat;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
@@ -251,8 +253,37 @@ class ModulePageController extends Controller
      *
      * @return View Halaman Pengaturan Pejabat Penandatangan.
      */
-    public function pejabatPenandatangan(): View
+    /**
+     * Menampilkan daftar pejabat dengan pencarian dan filter read-only.
+     *
+     * Ringkasan aktif selalu dihitung dari seluruh master pejabat, sedangkan
+     * paginator memakai filter tervalidasi dan urutan stabil agar nomor tabel
+     * tidak berubah secara acak antar permintaan.
+     *
+     * @param  FilterPejabatRequest  $request  Filter GET yang tervalidasi.
+     * @return View Halaman pejabat penandatangan.
+     */
+    public function pejabatPenandatangan(FilterPejabatRequest $request): View
     {
-        return view('pages.pengaturan.pejabat-penandatangan');
+        $filters = $request->validated();
+        $query = Pejabat::query()
+            ->orderBy('nama_pejabat')
+            ->orderBy('id_pejabat');
+
+        if (($filters['q'] ?? '') !== '') {
+            $escaped = addcslashes($filters['q'], '%_\\');
+            $query->where('nama_pejabat', 'like', "%{$escaped}%");
+        }
+
+        if (($filters['status'] ?? '') !== '') {
+            $query->where('status_aktif', $filters['status'] === 'aktif');
+        }
+
+        return view('pages.pengaturan.pejabat-penandatangan', [
+            'pejabat' => $query->paginate(10)->withQueryString(),
+            'totalPejabatAktif' => Pejabat::query()->aktif()->count(),
+            'search' => $filters['q'] ?? '',
+            'selectedStatus' => $filters['status'] ?? '',
+        ]);
     }
 }

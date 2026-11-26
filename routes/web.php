@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Pages\ModulePageController;
 use App\Http\Controllers\Pengaturan\DesaController;
+use App\Http\Controllers\Pengaturan\PejabatController;
 use App\Http\Controllers\Warga\WargaController;
 use App\Support\DashboardData;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/pengguna', [ModulePageController::class, 'simpanPengguna'])->name('pengguna.store');
         Route::post('/pengguna/{user}/toggle-status', [ModulePageController::class, 'toggleStatusPengguna'])->name('pengguna.toggle-status');
         Route::get('/pejabat-penandatangan', [ModulePageController::class, 'pejabatPenandatangan'])->name('pejabat-penandatangan');
+        // Form tambah pejabat penandatangan; hanya Admin yang dapat membuka dan menyimpan data.
+        Route::get('/pejabat-penandatangan/tambah', [PejabatController::class, 'create'])->name('pejabat-penandatangan.create');
+        Route::post('/pejabat-penandatangan', [PejabatController::class, 'store'])->name('pejabat-penandatangan.store');
         Route::get('/data-desa', [DesaController::class, 'show'])->name('data-desa');
     });
 });
