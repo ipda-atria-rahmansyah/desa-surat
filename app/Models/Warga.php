@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Model data warga yang menjadi sumber scope desa untuk surat dan dashboard.
+ */
 class Warga extends Model
 {
     use HasFactory;
@@ -32,6 +35,7 @@ class Warga extends Model
         'nama_ibu',
         'nama_ayah',
         'desa_id',
+        'is_active',
         'create_by',
         'modify_by',
     ];
@@ -40,6 +44,7 @@ class Warga extends Model
     {
         return [
             'tanggal_lahir' => 'date',
+            'is_active' => 'boolean',
         ];
     }
 

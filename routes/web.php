@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Pages\ModulePageController;
 use App\Http\Controllers\Pengaturan\DesaController;
 use App\Http\Controllers\Pengaturan\PejabatController;
 use App\Http\Controllers\Warga\WargaController;
-use App\Support\DashboardData;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -14,7 +14,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', fn () => view('pages.dashboard.dashboard', DashboardData::all()))->name('dashboard');
+    // Dashboard hanya dapat dibuka pengguna login dan mengambil scope dari session auth.
+    Route::get('/', DashboardController::class)->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::view('/buat-surat', 'pages.letter.create-letter-step-1-3')->name('create-letter-step-1-to-3');
     Route::view('/buat-surat/langkah-4', 'pages.letter.create-letter-step-4')->name('create-letter-step-4');

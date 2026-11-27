@@ -24,6 +24,16 @@ class WargaFactory extends Factory
             'alamat' => fake()->address(),
             'desa_id' => Desa::factory(),
             'create_by' => User::factory(),
+            'is_active' => true,
         ];
+    }
+
+    /**
+     * Menyiapkan warga nonaktif untuk menguji bahwa arsip tetap aman namun
+     * metrik warga aktif tidak menghitung record tersebut.
+     */
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes): array => ['is_active' => false]);
     }
 }

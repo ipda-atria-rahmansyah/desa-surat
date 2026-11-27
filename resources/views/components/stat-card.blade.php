@@ -1,3 +1,7 @@
+{{--
+    Kartu statistik ringkasan dashboard.
+    Dipakai oleh dashboard; menerima label, value, note, icon, dan tone scalar.
+--}}
 @props(['label', 'value', 'note', 'icon', 'tone'])
 
 <div class="card app-card h-100">

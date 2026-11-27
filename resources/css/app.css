@@ -169,18 +169,19 @@ body {
 .app-date-chip { min-height: 40px; padding: 0 12px; white-space: nowrap; background: white; border: 1px solid var(--app-border); border-radius: 8px; }
 .app-card { border: 1px solid var(--app-border); border-radius: 12px; box-shadow: 0 2px 8px rgb(27 43 34 / 4%); }
 .app-card .card-body { padding: 16px; }
-.app-card-title { font-size: 14px; }
+/* Komponen dashboard: ukuran mengikuti skala Bootstrap agar judul kartu tetap terbaca. */
+.app-card-title { font-size: 1rem; }
 .app-stat-icon { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; color: white; font-size: 18px; }
 .app-stat-icon--green { background: var(--app-stat-green); }
 .app-stat-icon--blue { background: var(--app-stat-blue); }
 .app-stat-icon--orange { background: var(--app-stat-orange); }
 .app-stat-icon--purple { background: var(--app-stat-purple); }
-.app-stat-label, .app-stat-note { font-size: 11px; }
+.app-stat-label, .app-stat-note { font-size: .875rem; }
 .app-stat-label { color: var(--app-text-muted); }
-.app-stat-value { font-size: 24px; line-height: 1.2; }
+.app-stat-value { font-size: 1.75rem; line-height: 1.2; }
 .app-stat-note { color: var(--app-primary); }
-.app-link { color: var(--app-primary); text-decoration: none; font-size: 11px; }
-.app-table { --bs-table-bg: transparent; margin: 0; white-space: nowrap; font-size: 10px; }
+.app-link { color: var(--app-primary); text-decoration: none; font-size: .875rem; }
+.app-table { --bs-table-bg: transparent; margin: 0; white-space: nowrap; }
 .app-table thead th { background: #f1f6f3; color: var(--app-body-color); font-weight: 600; }
 .app-table th, .app-table td { padding: 9px 7px; vertical-align: middle; }
 .app-arsip-page { min-width: 0; }
@@ -215,8 +216,8 @@ body {
 .app-donut { width: 160px; height: 160px; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--app-donut-people) 0deg 174.375deg, var(--app-donut-business) 174.375deg 253.125deg, var(--app-donut-welfare) 253.125deg 303.75deg, var(--app-donut-other) 303.75deg 360deg); }
 .app-donut-hole { width: 58%; height: 58%; border-radius: 50%; background: white; }
 .app-chart-total { font-size: 14px; }
-.app-chart-caption { color: var(--app-text-muted); font-size: 10px; }
-.app-legend { width: 100%; max-width: 280px; font-size: 10px; }
+.app-chart-caption { color: var(--app-text-muted); }
+.app-legend { width: 100%; max-width: 280px; font-size: .875rem; }
 
 /* Tipografi Pengaturan Pengguna: menjaga tabel dan kontrol tetap terbaca meski .app-table global dipakai halaman lain. */
 .app-pengaturan-page .app-description { font-size: 14px; }
