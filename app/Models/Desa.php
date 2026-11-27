@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Desa extends Model
 {
+    use HasFactory;
+
     protected $table = 'tbmaster_desa';
 
     protected $primaryKey = 'id_desa';

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Surat extends Model
 {
+    // Factory dipakai untuk menyiapkan arsip fiktif pada test dan development.
+    use HasFactory;
+
     protected $table = 'tbtr_surat';
 
     protected $primaryKey = 'id_surat';
@@ -20,6 +24,7 @@ class Surat extends Model
         'jenis_surat_id',
         'warga_id',
         'user_id',
+        'pejabat_id',
         'tanggal_surat',
         'keperluan',
         'status',
@@ -72,6 +77,16 @@ class Surat extends Model
             'user_id',
             'id_user'
         );
+    }
+
+    /**
+     * Mengambil pejabat penandatangan yang terkait dengan surat ini.
+     *
+     * @return BelongsTo<Pejabat, $this>
+     */
+    public function pejabat(): BelongsTo
+    {
+        return $this->belongsTo(Pejabat::class, 'pejabat_id', 'id_pejabat');
     }
 
     // Surat memiliki satu detail

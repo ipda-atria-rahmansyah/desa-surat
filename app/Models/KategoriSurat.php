@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KategoriSurat extends Model
 {
+    // Factory menyediakan master kategori tanpa seeder untuk test arsip.
+    use HasFactory;
+
     protected $table = 'tbmaster_kategori_surat';
 
     protected $primaryKey = 'id_kategori_surat';

@@ -5,3 +5,84 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import 'bootstrap';
+
+/**
+ * Mengatur tombol tampil/sembunyi password pada form tambah pengguna.
+ * Interaksi ini hanya mengubah tipe input di browser dan tidak menyimpan password.
+ */
+document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const input = document.getElementById(button.dataset.passwordToggle);
+        const icon = button.querySelector('i');
+
+        if (!input || !icon) {
+            return;
+        }
+
+        const isVisible = input.type === 'text';
+        input.type = isVisible ? 'password' : 'text';
+        icon.classList.toggle('bi-eye-slash-fill', isVisible);
+        icon.classList.toggle('bi-eye-fill', !isVisible);
+        button.setAttribute('aria-label', isVisible ? 'Tampilkan password' : 'Sembunyikan password');
+    });
+});
+import Alpine from 'alpinejs';
+import './warga-search';
+
+const sidebarStorageKey = 'desa-surat.sidebar-collapsed';
+
+document.addEventListener('DOMContentLoaded', () => {
+    const appMain = document.querySelector('.app-main');
+    const sidebarToggle = document.querySelector('[data-app-sidebar-toggle]');
+
+    if (!appMain || !sidebarToggle) return;
+
+    const setSidebarState = (collapsed) => {
+        document.body.classList.toggle('app-sidebar-collapsed', collapsed);
+        sidebarToggle.setAttribute('aria-label', collapsed ? 'Perluas sidebar' : 'Ciutkan sidebar');
+        sidebarToggle.querySelector('i')?.classList.toggle('bi-layout-sidebar-inset', collapsed);
+        sidebarToggle.querySelector('i')?.classList.toggle('bi-list', !collapsed);
+    };
+
+    setSidebarState(localStorage.getItem(sidebarStorageKey) === 'true');
+    sidebarToggle.addEventListener('click', () => {
+        const collapsed = !document.body.classList.contains('app-sidebar-collapsed');
+        setSidebarState(collapsed);
+        localStorage.setItem(sidebarStorageKey, collapsed);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.app-login-toggle')?.addEventListener('click', (event) => {
+        const button = event.currentTarget;
+        const passwordInput = button.closest('.input-group')?.querySelector('input[name="password"]');
+        const icon = button.querySelector('i');
+
+        if (!passwordInput || !icon) return;
+
+        const isVisible = passwordInput.type === 'text';
+        passwordInput.type = isVisible ? 'password' : 'text';
+        button.setAttribute('aria-label', isVisible ? 'Tampilkan password' : 'Sembunyikan password');
+        button.setAttribute('aria-pressed', String(!isVisible));
+        icon.classList.toggle('bi-eye-slash-fill', isVisible);
+        icon.classList.toggle('bi-eye-fill', !isVisible);
+    });
+});
+
+window.letterForm = () => ({
+    category: 'Surat Kematian',
+    letterType: 'Surat Keterangan Domisili',
+    nik: '',
+    resident: null,
+    searchMessage: '',
+    residents: [{ nik: '3201010101010001', name: 'Budi Santoso' }],
+    get canContinue() {
+        return Boolean(this.category && this.letterType && this.resident);
+    },
+    searchNik() {
+        this.resident = this.residents.find((item) => item.nik === this.nik) ?? null;
+        this.searchMessage = this.resident ? '' : 'Data warga tidak ditemukan.';
+    },
+});
+window.Alpine = Alpine;
+Alpine.start();

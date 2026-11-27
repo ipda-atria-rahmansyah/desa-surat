@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JenisSurat extends Model
 {
+    // Factory menyediakan master jenis surat yang menjadi foreign key arsip.
+    use HasFactory;
+
     protected $table = 'tbmaster_jenis_surat';
 
     protected $primaryKey = 'id_jenis_surat';

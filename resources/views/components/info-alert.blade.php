@@ -1,0 +1,1 @@
+<div class="app-info-alert d-flex align-items-start gap-2" role="alert"><i class="bi bi-info-circle"></i><span>{{ $slot }}</span></div>
