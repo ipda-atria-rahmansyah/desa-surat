@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Support\Activity\ActivityRecorder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +20,7 @@ class AuthController extends Controller
         return view('pages.auth.login');
     }
 
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginRequest $request, ActivityRecorder $activityRecorder): RedirectResponse
     {
         $credentials = [...$request->validated(), 'is_active' => true];
 
@@ -30,12 +31,14 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
+        $activityRecorder->record('LOGIN', 'Auth', 'Pengguna berhasil masuk ke aplikasi.');
 
         return redirect()->intended(route('dashboard'));
     }
 
-    public function logout(): RedirectResponse
+    public function logout(ActivityRecorder $activityRecorder): RedirectResponse
     {
+        $activityRecorder->record('LOGOUT', 'Auth', 'Pengguna keluar dari aplikasi.');
         Auth::logout();
 
         request()->session()->invalidate();

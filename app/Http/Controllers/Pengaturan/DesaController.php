@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pengaturan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pengaturan\UpdateDesaRequest;
 use App\Models\Desa;
+use App\Support\Activity\ActivityRecorder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -59,7 +60,7 @@ class DesaController extends Controller
      * @param  UpdateDesaRequest  $request  Data desa yang sudah tervalidasi.
      * @return RedirectResponse Kembali ke halaman Data Desa dengan status operasi.
      */
-    public function update(UpdateDesaRequest $request): RedirectResponse
+    public function update(UpdateDesaRequest $request, ActivityRecorder $activityRecorder): RedirectResponse
     {
         $desa = Desa::query()->orderBy('id_desa')->first();
 
@@ -81,6 +82,7 @@ class DesaController extends Controller
             DB::transaction(function () use ($desa, $validated): void {
                 $desa->update($validated);
             });
+            $activityRecorder->record('UPDATE', 'Pengaturan Desa', 'Data desa berhasil diperbarui.', $desa);
 
             if ($newLogoPath !== null && $this->isManagedLogoPath($oldLogoPath)) {
                 Storage::disk('public')->delete($oldLogoPath);

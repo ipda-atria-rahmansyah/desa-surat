@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pengaturan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pengaturan\StorePejabatRequest;
 use App\Models\Pejabat;
+use App\Support\Activity\ActivityRecorder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -34,9 +35,10 @@ class PejabatController extends Controller
      * @param  StorePejabatRequest  $request  Request Admin yang tervalidasi.
      * @return RedirectResponse Kembali ke daftar dengan pesan sukses.
      */
-    public function store(StorePejabatRequest $request): RedirectResponse
+    public function store(StorePejabatRequest $request, ActivityRecorder $activityRecorder): RedirectResponse
     {
-        Pejabat::create($request->validated());
+        $pejabat = Pejabat::create($request->validated());
+        $activityRecorder->record('CREATE', 'Pejabat', 'Data pejabat berhasil disimpan.', $pejabat);
 
         return to_route('settings.pejabat-penandatangan')
             ->with('success', 'Data pejabat berhasil disimpan.');

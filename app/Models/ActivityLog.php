@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Model append-only untuk riwayat aktivitas pengguna dan sistem.
+ */
 class ActivityLog extends Model
 {
     protected $table = 'tblog_activity_logs';
