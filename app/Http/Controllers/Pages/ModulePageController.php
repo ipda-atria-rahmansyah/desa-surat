@@ -13,6 +13,7 @@ use App\Models\Pejabat;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
+use App\Support\Activity\ActivityRecorder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -217,13 +218,14 @@ class ModulePageController extends Controller
      * @param  StorePenggunaRequest  $request  Data pengguna yang tervalidasi.
      * @return RedirectResponse Kembali ke daftar pengguna dengan pesan sukses.
      */
-    public function simpanPengguna(StorePenggunaRequest $request): RedirectResponse
+    public function simpanPengguna(StorePenggunaRequest $request, ActivityRecorder $activityRecorder): RedirectResponse
     {
-        User::create([
+        $user = User::create([
             ...$request->safe()->except(['is_active']),
             'email' => $request->validated('username').'@desa.local',
             'is_active' => $request->boolean('is_active'),
         ]);
+        $activityRecorder->record('CREATE', 'Pengguna', 'Akun pengguna baru berhasil ditambahkan.', $user);
 
         return redirect()->route('settings.pengguna')->with('success', 'Pengguna berhasil ditambahkan.');
     }
@@ -237,13 +239,14 @@ class ModulePageController extends Controller
      * @param  User  $user  Pengguna yang statusnya akan dibalik.
      * @return RedirectResponse Kembali ke daftar pengguna dengan pesan hasil aksi.
      */
-    public function toggleStatusPengguna(User $user): RedirectResponse
+    public function toggleStatusPengguna(User $user, ActivityRecorder $activityRecorder): RedirectResponse
     {
         if ($user->is(auth()->user())) {
             return back()->with('error', 'Akun yang sedang digunakan tidak dapat dinonaktifkan.');
         }
 
         $user->update(['is_active' => ! $user->is_active]);
+        $activityRecorder->record('UPDATE', 'Pengguna', 'Status pengguna berhasil diperbarui.', $user);
 
         return back()->with('success', 'Status pengguna berhasil diperbarui.');
     }

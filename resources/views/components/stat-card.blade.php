@@ -1,6 +1,6 @@
 {{--
     Kartu statistik ringkasan dashboard.
-    Dipakai oleh dashboard; menerima label, value, note, icon, dan tone scalar.
+    Dipakai oleh dashboard operator dan admin; menerima label, value, note, icon, dan tone scalar.
 --}}
 @props(['label', 'value', 'note', 'icon', 'tone'])
 
@@ -9,7 +9,7 @@
         <span class="app-stat-icon app-stat-icon--{{ $tone }} d-flex align-items-center justify-content-center"><i class="bi {{ $icon }}"></i></span>
         <div class="min-w-0">
             <div class="app-stat-label">{{ $label }}</div>
-            <div class="app-stat-value fw-bold">{{ $value }}</div>
+            <div class="app-stat-value fs-3 fw-bold">{{ $value }}</div>
             <div class="app-stat-note">{{ $note }}</div>
         </div>
     </div>

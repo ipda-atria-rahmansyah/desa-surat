@@ -62,7 +62,7 @@ class DashboardTest extends TestCase
         $this->actingAs($operator)->get('/')
             ->assertOk()
             ->assertSee('>0</div>', false)
-            ->assertSee('Belum ada surat yang dibuat.')
+            ->assertSee('Belum ada surat terbaru.')
             ->assertSee('Kematian')
             ->assertSee('Kelahiran')
             ->assertSee('Keterangan Umum')

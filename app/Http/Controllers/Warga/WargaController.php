@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\StoreWargaRequest;
 use App\Models\Desa;
 use App\Models\Warga;
+use App\Support\Activity\ActivityRecorder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -16,15 +17,16 @@ class WargaController extends Controller
         return view('warga.create');
     }
 
-    public function store(StoreWargaRequest $request): RedirectResponse
+    public function store(StoreWargaRequest $request, ActivityRecorder $activityRecorder): RedirectResponse
     {
         $desa = Desa::query()->orderBy('id_desa')->firstOrFail();
 
-        Warga::create([
+        $warga = Warga::create([
             ...$request->validated(),
             'desa_id' => $desa->getKey(),
             'create_by' => $request->user()->getAuthIdentifier(),
         ]);
+        $activityRecorder->record('CREATE', 'Warga', 'Data warga baru berhasil disimpan.', $warga);
 
         return to_route('warga.index')->with('success', 'Data warga berhasil disimpan.');
     }
